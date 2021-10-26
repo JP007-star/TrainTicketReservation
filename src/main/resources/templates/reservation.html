@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Train Ticket Reservation System</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="menu-bar">
+    <h2 class="heading">TICKET RESERVATION</h2>
+    <ul>
+        <li></i><a href="index"> HOME</a></li>
+        <li class="active"><a href="reservation"></i> REGISTER</a>
+    </ul>
+</div>
+   <br>
+    <div class="container">
+        <form>
+            <label for="trainNo">Train No:</label>
+            <input type="text" name="trainNo"  id="trainNo" class="trainInput" placeholder="Enter TrainNO">
+            <label for="travelDate">TravelDate:</label>
+            <input type="date" name="travelDate"  id="travelDate" class="trainInput" placeholder="Enter TravelDate">
+            <label for="noOfPassengers">Passenger:</label>
+            <input type="text" name="noOfPassengers"  id="noOfPassengers" class="trainInput" placeholder="Enter No of passengers">
+           </div> <br><br>
+    <div class="container">
+            <label for="name">Name:</label>
+            <input type="text" name="name"  id="name" class="trainInput" placeholder="Name">
+            <label for="age">Age:</label>
+            <input type="text" name="age"  id="age" class="trainInput" placeholder="Age">
+            <label for="gender" >Gender:</label>
+            <select name="gender" id="gender" >
+                <option>select</option>
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+           <div id="content"></div>
+            <input type="submit" id="submit">
+    </div>
+   </form><br>
+<footer>Copyright @ JP 2021</footer>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous">
+</script>
+<script>
+ $('#noOfPassengers').on('input',function(e){
+ $('#content').html('');
+  var val=$(this).val();
+  for (let i = 1; i < val; i++) {
+  $('#content').append('<br><label for="name">Name:</label>'+
+          '<input type="text" name="name'+i+'"  id="name" class="trainInput" placeholder="Name">'+
+          '<label for="age">Age:</label>'+
+          '<input type="text" name="age'+i+'"  id="age" class="trainInput" placeholder="Age">'+
+          '<label for="gender" >Gender:&emsp;</label>'+
+          '<select name="gender'+i+'" id="gender" >'+
+               '<option value="">select</option>'+
+               '<option value="M">Male</option>'+
+               '<option value="F">Female</option>'+
+           '</select>');
+  }
+ });
+ function GetURLParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+            return decodeURIComponent(sParameterName[1]);
+        }
+    }
+}
+var trainNo = GetURLParameter('trainNo');
+$('#trainNo').val(trainNo);
+</script>
+</html>

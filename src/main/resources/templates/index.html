@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Train Ticket Reservation System</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="menu-bar">
+    <h2 class="heading">TICKET RESERVATION</h2>
+    <ul>
+        <li class="active"></i><a href="index"> HOME</a></li>
+        <li><a href="reservation"></i>REGISTER</a>
+    </ul>
+</div><br>
+<table>
+    <thead>
+    <th>Train No</th>
+    <th>Train Name</th>
+    <th>Source</th>
+    <th>Destination</th>
+    <th>Price</th>
+    </thead>
+    <tbody>
+
+        <tr class='clickable-row' data-href='reservation?trainNo=1001'>
+                <td> 1001</td>
+                <td>Shatabdi Express</td>
+                <td>Bangalore</td>
+                <td>Delhi</td>
+                <td>2500</td>
+        </tr>
+
+    <tr class='clickable-row' data-href='reservation?trainNo=1002'>
+        <td>1002</td>
+        <td>Shatabdi Express</td>
+        <td>Delhi</td>
+        <td>Bangalore</td>
+        <td>2500</td>
+    </tr>
+    <tr class='clickable-row' data-href='reservation?trainNo=1003' >
+        <td>1003</td>
+        <td>Udyan Express</td>
+        <td>Bangalore</td>
+        <td>Mumbai</td>
+        <td>1500</td>
+    </tr>
+    <tr class='clickable-row' data-href='reservation?trainNo=1004'>
+        <td>1004</td>
+        <td>Udyan Express</td>
+        <td>Mumbai</td>
+        <td>Bangalore</td>
+        <td>1500</td>
+    </tr>
+    <tr class='clickable-row' data-href='reservation?trainNo=1005'>
+        <td>1005</td>
+        <td>Brindavan Express</td>
+        <td>Bangalore</td>
+        <td>Chennai</td>
+        <td>1000</td>
+    </tr>
+    <tr class='clickable-row' data-href='reservation?trainNo=1006'>
+        <td>1006</td>
+        <td>Brindavan Express</td>
+        <td>Chennai</td>
+        <td>Bangalore</td>
+        <td>1000</td>
+    </tr>
+
+    </tbody>
+</table><br>
+<footer>Copyright @ JP 2021</footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous">
+</script>
+<script>
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+</script>
+</html>
