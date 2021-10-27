@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Train Ticket Reservation System</title>
     <link href="style.css" rel="stylesheet">
+    <!link type="text/css" rel="stylesheet" th:href="@{\webjars\bootstrap\4.3.1\css\bootstrap.css}">
 </head>
 <body>
 <div class="menu-bar">
@@ -13,7 +14,7 @@
         <li><a href="reservation"></i>REGISTER</a>
     </ul>
 </div><br>
-<table>
+<table >
     <thead>
     <th>Train No</th>
     <th>Train Name</th>
@@ -22,51 +23,15 @@
     <th>Price</th>
     </thead>
     <tbody>
-
-        <tr class='clickable-row' data-href='reservation?trainNo=1001'>
-                <td> 1001</td>
-                <td>Shatabdi Express</td>
-                <td>Bangalore</td>
-                <td>Delhi</td>
-                <td>2500</td>
+    <th:block th:each="train:${trainList}">
+        <tr class='clickable-row' data-href='reservation?trainNo=' [[${train.trainNo}]]>
+            <td>[[${train.trainNo}]]</td>
+            <td>[[${train.trainName}]]</td>
+            <td>[[${train.source}]]</td>
+            <td>[[${train.destination}]]</td>
+            <td>[[${train.ticketPrice}]]</td>
         </tr>
-
-    <tr class='clickable-row' data-href='reservation?trainNo=1002'>
-        <td>1002</td>
-        <td>Shatabdi Express</td>
-        <td>Delhi</td>
-        <td>Bangalore</td>
-        <td>2500</td>
-    </tr>
-    <tr class='clickable-row' data-href='reservation?trainNo=1003' >
-        <td>1003</td>
-        <td>Udyan Express</td>
-        <td>Bangalore</td>
-        <td>Mumbai</td>
-        <td>1500</td>
-    </tr>
-    <tr class='clickable-row' data-href='reservation?trainNo=1004'>
-        <td>1004</td>
-        <td>Udyan Express</td>
-        <td>Mumbai</td>
-        <td>Bangalore</td>
-        <td>1500</td>
-    </tr>
-    <tr class='clickable-row' data-href='reservation?trainNo=1005'>
-        <td>1005</td>
-        <td>Brindavan Express</td>
-        <td>Bangalore</td>
-        <td>Chennai</td>
-        <td>1000</td>
-    </tr>
-    <tr class='clickable-row' data-href='reservation?trainNo=1006'>
-        <td>1006</td>
-        <td>Brindavan Express</td>
-        <td>Chennai</td>
-        <td>Bangalore</td>
-        <td>1000</td>
-    </tr>
-
+    </th:block>
     </tbody>
 </table><br>
 <footer>Copyright @ JP 2021</footer>

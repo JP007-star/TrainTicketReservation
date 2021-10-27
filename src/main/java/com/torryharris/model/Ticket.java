@@ -98,7 +98,7 @@ public class Ticket {
         Passenger passenger = new Passenger(name, age, gender);
         ArrayList<Passenger> passengerArrayList=new ArrayList<>();
         passengerArrayList.add(passenger);
-        System.out.println(passengerArrayList);
+       // System.out.println(passengerArrayList);
         ticket.calcPassengerFare(passenger,train);
     }
     private double calcPassengerFare(Passenger passenger,Train train){
@@ -125,7 +125,7 @@ public class Ticket {
             finalMaleFare+=maleFare;
         }
         double totalTicketPrice=finalAgedFare+finalMaleFare+finalChildFare+finalFemaleFare;
-        System.out.println(totalTicketPrice);
+        //System.out.println(totalTicketPrice);
         return (totalTicketPrice);
     }
     public static int updateCounter()

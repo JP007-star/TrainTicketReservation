@@ -19,13 +19,14 @@ public class TicketApplication {
         System.out.println("Enter the Train Number:");
         int trainNo= Integer.parseInt(scanner.nextLine());
         Train train=trainDAO.findTrain(trainNo);
-
+        //System.out.println(trainDAO.fetchTrains());
         if(trainDAO.findTrain(trainNo)!=null) {
             System.out.println("Enter the Travel Date:");
             String travelDate = scanner.nextLine();
             Ticket ticket=new Ticket(travelDate,train);
             isDateValid(travelDate);
             System.out.println(isDateValid(travelDate));
+           // System.out.println(ticket.generatePNR());
             if(isDateValid(travelDate)!="TravelDate is before current date!...") {
                 System.out.println("Enter the No of Passengers:");
                 int noOfPassengers = Integer.parseInt(scanner.nextLine());
@@ -40,11 +41,10 @@ public class TicketApplication {
                     ticket.addPassenger(name,age,gender,train);
 
                 }
-                for (Passenger passenger : passengerArrayList) {
-                    System.out.println(passenger);
-                }
-
             }
+        }
+        else{
+            System.out.println("Train Not Found! ... Retry with correct Train No");
         }
     }
 
