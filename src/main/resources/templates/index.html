@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Train Ticket Reservation System</title>
-    <link href="style.css" rel="stylesheet">
+    <link type="text/css" th:href="@{\style.css}" rel="stylesheet">
     <!link type="text/css" rel="stylesheet" th:href="@{\webjars\bootstrap\4.3.1\css\bootstrap.css}">
 </head>
 <body>
@@ -24,7 +24,7 @@
     </thead>
     <tbody>
     <th:block th:each="train:${trainList}">
-        <tr class='clickable-row' data-href='reservation?trainNo=' [[${train.trainNo}]]>
+        <tr class='clickable-row' th:data-href="@{reservation?(trainNo=${train.trainNo})}">
             <td>[[${train.trainNo}]]</td>
             <td>[[${train.trainName}]]</td>
             <td>[[${train.source}]]</td>
