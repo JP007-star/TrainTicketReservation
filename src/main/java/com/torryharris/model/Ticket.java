@@ -20,6 +20,15 @@ public class Ticket {
     public Ticket(Passenger passenger, Train train) {
     }
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "pnr='" + pnr + '\'' +
+                ", travelDate='" + travelDate + '\'' +
+                ", train=" + train +
+                '}';
+    }
+
     public Ticket getTicket() {
         return ticket;
     }
