@@ -3,16 +3,16 @@ package com.torryharris.model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class Ticket {
     int counter;
     String pnr;
     String travelDate;
     Train train;
-    Ticket ticket;
-    Passenger passenger;
-    double price =0;
-    double totalPrice;
+    TreeMap<Passenger,Double> passengers = new TreeMap<>();
+    ArrayList<Passenger> passengerArrayList = new ArrayList<>();
+    double price;
 
     public Ticket(Passenger passenger, Train train) {
     }
@@ -26,13 +26,7 @@ public class Ticket {
                 '}';
     }
 
-    public Ticket getTicket() {
-        return ticket;
-    }
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
 
     public double getPrice() {
         return price;
@@ -42,7 +36,7 @@ public class Ticket {
         this.price = price;
     }
 
-    public Ticket(String travelDate, com.torryharris.model.Train train) {
+    public Ticket(String travelDate,Train train) {
         this.travelDate = travelDate;
         this.train = train;
     }
@@ -83,33 +77,29 @@ public class Ticket {
         this.train = train;
     }
 
-    public Passenger getPassenger() {
-        return passenger;
-    }
 
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
-    }
 
     public String generatePNR(){
-        Ticket ticket=new Ticket(travelDate,train);
+        //Ticket ticket=new Ticket(travelDate,train);
         char source=train.getSource().charAt(0);
         char destination=train.getDestination().charAt(0);
-        String travelDate= ticket.getTravelDate();
-        String[] dt=ticket.getTravelDate().split("-",3);
-        String pnrString=source+""+destination+"_"+travelDate+"_"+ updateCounter();
-        return pnrString;
+        String travelDate=getTravelDate();
+        String[] dt=getTravelDate().split("-",3);
+        String pnrstring = source+""+destination+"_"+travelDate+"_"+ updateCounter();
+
+        setPnr(pnrstring);
+        System.out.println(pnr);
+        return pnrstring;
     }
-    public void addPassenger(String name,int age,char gender,Train train){
-        Ticket ticket=new Ticket();
+    public void addPassenger(String name,int age,char gender){
         Passenger passenger = new Passenger(name, age, gender);
-        ArrayList<Passenger> passengerArrayList=new ArrayList<>();
         passengerArrayList.add(passenger);
-        ticket.calcPassengerFare(passenger,train);
-        ticket.calcTotalTicketPrice();
-        ticket.generateTicket(passenger);
+        calcPassengerFare(passenger);
+        passengers.put(passenger,price);
     }
-    private double calcPassengerFare(Passenger passenger,Train train){
+
+
+    private double calcPassengerFare(Passenger passenger){
 
        if(passenger.getAge()<=12)
         {
@@ -136,16 +126,80 @@ public class Ticket {
 
     }
     private double calcTotalTicketPrice(){
-        totalPrice += price;
-        System.out.println(totalPrice);
-        return price;
+        double totalPrice = 0.0;
+        for (double p : passengers.values()) {
+            totalPrice += p;
+        }
+        return totalPrice;
     }
-    private  StringBuilder generateTicket(Passenger passenger){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(passenger);
-        System.out.println(stringBuilder);
-        return stringBuilder;
-    }
+    private StringBuilder generateTicket() {
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(getPnr() + ","
+                    + train.getTrainNo() + ","
+                    + train.getTrainName() + ","
+                    + train.getSource() + ","
+                    + train.getDestination() + ","
+                    + travelDate + ","
+                    + calcTotalTicketPrice());
+
+            return stringBuilder;
+        }
+        public void writeTicket() {
+
+            File file = new File(generatePNR() + ".txt");
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try (FileWriter fileWriter = new FileWriter(file, true);
+                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+                StringBuilder stringBuilder = generateTicket();
+
+
+                bufferedWriter.newLine();
+                bufferedWriter.newLine();
+                bufferedWriter.write("PNR: " + stringBuilder.toString().split(",")[0]);
+                bufferedWriter.newLine();
+                bufferedWriter.write("Train no: " + stringBuilder.toString().split(",")[1]);
+                bufferedWriter.newLine();
+                bufferedWriter.write("Train name: " + stringBuilder.toString().split(",")[2]);
+                bufferedWriter.newLine();
+                bufferedWriter.write("From: " + stringBuilder.toString().split(",")[3]);
+                bufferedWriter.newLine();
+                bufferedWriter.write("To: " + stringBuilder.toString().split(",")[4]);
+                bufferedWriter.newLine();
+                bufferedWriter.write("Travel Date: " + stringBuilder.toString().split(",")[5]);
+                bufferedWriter.newLine();
+
+                bufferedWriter.write("Passengers: ");
+                bufferedWriter.newLine();
+
+                bufferedWriter.write("Name    Age    Gender    Fare");
+                bufferedWriter.newLine();
+                System.out.println(passengers);
+                System.out.println(passengerArrayList);
+
+                for (Passenger p : passengers.keySet()) {
+
+                    bufferedWriter.write(p.getName() + "      ");
+                    bufferedWriter.write(String.valueOf(p.getAge()) + "       ");
+                    bufferedWriter.write(p.getGender() + "        ");
+                    bufferedWriter.write(String.valueOf(passengers.get(p)) + "        ");
+                    bufferedWriter.newLine();
+                }
+
+                bufferedWriter.write("Total Price:  " + calcTotalTicketPrice());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
     public static int updateCounter()
     {
         String counterFileName="counter.txt";

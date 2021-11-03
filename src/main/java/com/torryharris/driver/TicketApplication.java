@@ -37,11 +37,12 @@ public class TicketApplication {
                     int age = Integer.parseInt(scanner.nextLine());
                     System.out.println("Enter Gender (M/F):");
                     char gender = scanner.nextLine().charAt(0);
-                    Passenger passenger = new Passenger(name, age, gender);
-                    ticket.addPassenger(name,age,gender,train);
+                    ticket.addPassenger(name,age,gender);
 
                 }
+                ticket.writeTicket();
             }
+
         }
         else{
             System.out.println("Train Not Found! ... Retry with correct Train No");
