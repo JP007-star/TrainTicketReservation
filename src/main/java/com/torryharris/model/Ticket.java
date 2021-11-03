@@ -103,19 +103,19 @@ public class Ticket {
 
        if(passenger.getAge()<=12)
         {
-            price = train.getTicketPrice()/2;
+            price = train.getTicketPrice() * 0.5;
             return price;
 
         }
         else if(passenger.getAge()>=60)
         {
-            price = train.getTicketPrice()*(60/100);
+            price = train.getTicketPrice() * 0.6;
             return price;
 
         }
-        else if(passenger.getGender()=='F')
+        else if(passenger.getGender()=='F' || passenger.getGender()=='f' )
         {
-            price = train.getTicketPrice()-(train.getTicketPrice()*(25/100));
+            price = train.getTicketPrice()-(train.getTicketPrice() * 0.25);
             return price;
         }
         else
