@@ -15,13 +15,13 @@
 </div>
    <br>
     <div class="container">
-        <form>
+        <form th:action="@{bookTicket}" method="post" >
             <label for="trainNo">Train No:</label>
             <input type="text" name="trainNo"  id="trainNo" class="trainInput" placeholder="Enter TrainNO">
             <label for="travelDate">TravelDate:</label>
             <input type="date" name="travelDate"  id="travelDate" class="trainInput" placeholder="Enter TravelDate">
             <label for="noOfPassengers">Passenger:</label>
-            <input type="text" name="noOfPassengers"  id="noOfPassengers" class="trainInput" placeholder="Enter No of passengers">
+            <input type="text" name="noOfPassengers"   id="noOfPassengers" class="trainInput" placeholder="Enter No of passengers">
            </div> <br><br>
     <div class="container">
             <label for="name">Name:</label>

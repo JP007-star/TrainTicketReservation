@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Train Ticket Confirmation</title>
+    <link type="text/css" th:href="@{\style.css}" rel="stylesheet">
+</head>
+<style>
+
+</style>
+<body>
+<h2><center>Ticket Confirmation</center></h2>
+<center>
+    <form>
+
+        <fieldset>
+            <table id="table1" border="0px" align="left">
+                <tr>
+                    <td>PNR</td>
+                    <td>:[[${pnr}]] </td>
+                </tr>
+                <tr>
+                    <td>Train No</td>
+                    <td>:[[${trainNo}]]</td>
+                </tr>
+                <tr>
+                    <td>Train Name</td>
+                    <td>:[[${train.trainName}]]</td>
+                </tr>
+                <tr>
+                    <td>From</td>
+                    <td>:[[${train.source}]]</td>
+                </tr>
+                <tr>
+                    <td>To</td>
+                    <td>:[[${train.destination}]]</td>
+                </tr>
+                <tr>
+                    <td>Travel Date</td>
+                    <td>:[[${travelDate}]]</td>
+                </tr>
+                <tr>
+                    <td><b>Passengers:</b></td>
+                </tr><br>
+            </table>
+            <style>
+                td{ padding-right: 50px}
+            </style>
+            <table id="table2" align="left">
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Fare</th>
+                </tr>
+                <tr>
+                    <td>Ram</td>
+                    <td>35</td>
+                    <td>Male</td>
+                    <td>800</td>
+                </tr>
+                <tr>
+                    <td>Sita</td>
+                    <td>30</td>
+                    <td>Female</td>
+                    <td>600</td>
+                </tr>
+                <tr>
+                    <td>Ajay</td>
+                    <td>65</td>
+                    <td>Male</td>
+                    <td>320</td>
+                </tr>
+            </table>
+            <table id="table3" align="left">
+                <tr>
+                    <td>Total Price:</td>
+                    <td>1720</td>
+                </tr>
+            </table>
+        </fieldset>
+        <table>
+            <tr>
+                <td><button style="border-radius: 5px; box-shadow: 0 2px #D1D0CE; background-color: #FED8B1">Download Ticket</button></a></td>
+            </tr>
+        </table>
+    </form><br>
+</center>
+</body>
+</html>
