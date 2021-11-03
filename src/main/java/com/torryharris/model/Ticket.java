@@ -11,11 +11,8 @@ public class Ticket {
     Train train;
     Ticket ticket;
     Passenger passenger;
-    double price;
-    double finalChildFare=0;
-    double finalAgedFare=0;
-    double finalFemaleFare=0;
-    double finalMaleFare=0;
+    double price =0;
+    double totalPrice;
 
     public Ticket(Passenger passenger, Train train) {
     }
@@ -84,6 +81,7 @@ public class Ticket {
     public void setPassenger(Passenger passenger) {
         this.passenger = passenger;
     }
+
     public String generatePNR(){
         Ticket ticket=new Ticket(travelDate,train);
         char source=train.getSource().charAt(0);
@@ -98,35 +96,46 @@ public class Ticket {
         Passenger passenger = new Passenger(name, age, gender);
         ArrayList<Passenger> passengerArrayList=new ArrayList<>();
         passengerArrayList.add(passenger);
-       // System.out.println(passengerArrayList);
         ticket.calcPassengerFare(passenger,train);
+        ticket.calcTotalTicketPrice();
+        ticket.generateTicket(passenger);
     }
     private double calcPassengerFare(Passenger passenger,Train train){
 
-        if(passenger.getAge()<=12)
+       if(passenger.getAge()<=12)
         {
-            double childFare=train.getTicketPrice()/2;
-            System.out.println(childFare);
-            finalChildFare+=childFare;
+            price = train.getTicketPrice()/2;
+            return price;
+
         }
         else if(passenger.getAge()>=60)
         {
-            double agedFare=train.getTicketPrice()*(60/100);
-            finalAgedFare+=agedFare;
+            price = train.getTicketPrice()*(60/100);
+            return price;
+
         }
         else if(passenger.getGender()=='F')
         {
-            double femaleFare= train.getTicketPrice()-(train.getTicketPrice()*(25/100));
-            finalFemaleFare+=femaleFare;
+            price = train.getTicketPrice()-(train.getTicketPrice()*(25/100));
+            return price;
         }
         else
         {
-            double maleFare = train.getTicketPrice();
-            finalMaleFare+=maleFare;
+            price = train.getTicketPrice();
+            return price;
         }
-        double totalTicketPrice=finalAgedFare+finalMaleFare+finalChildFare+finalFemaleFare;
-        //System.out.println(totalTicketPrice);
-        return (totalTicketPrice);
+
+    }
+    private double calcTotalTicketPrice(){
+        totalPrice += price;
+        System.out.println(totalPrice);
+        return price;
+    }
+    private  StringBuilder generateTicket(Passenger passenger){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(passenger);
+        System.out.println(stringBuilder);
+        return stringBuilder;
     }
     public static int updateCounter()
     {
