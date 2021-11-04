@@ -10,37 +10,45 @@
 
 </style>
 <body>
-
-<h2 class="col-12"><center>Ticket Confirmation</center></h2>
-
-<button class="float-right mr-5 btn btn-secondary"> Download </button> <br>
-<div class="card m-5 shadow">
 <center>
+    <div class="col-10 alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Congratulation! </strong>You have Successfully booked a Ticket.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+</center>
+<button class="float-right mr-5 btn btn-secondary" id="downloadTicket"> Download </button> <br>
+<div class="card m-5 mb-5 shadow">
+    <center>
+        <div class="alert alert-primary" role="alert">
+            <h3>INDIAN RAILWAYS</h3>
+        </div>
     <form>
             <table id="table1" border="0px" align="left">
                 <tr>
                     <td>PNR</td>
-                    <td>:[[${pnr}]] </td>
+                    <td>:&emsp;[[${pnr}]] </td>
                 </tr>
                 <tr>
                     <td>Train No</td>
-                    <td>:[[${trainNo}]]</td>
+                    <td>:&emsp;[[${trainNo}]]</td>
                 </tr>
                 <tr>
                     <td>Train Name</td>
-                    <td>:[[${train.trainName}]]</td>
+                    <td>:&emsp;[[${train.trainName}]]</td>
                 </tr>
                 <tr>
                     <td>From</td>
-                    <td>:[[${train.source}]]</td>
+                    <td>:&emsp;[[${train.source}]]</td>
                 </tr>
                 <tr>
                     <td>To</td>
-                    <td>:[[${train.destination}]]</td>
+                    <td>:&emsp;[[${train.destination}]]</td>
                 </tr>
                 <tr>
                     <td>Travel Date</td>
-                    <td>:[[${travelDate}]]</td>
+                    <td>:&emsp;[[${travelDate}]]</td>
                 </tr>
                 <tr>
                     <td><b>Passengers:</b></td>
@@ -68,8 +76,22 @@
                     <td>[[${totalPrice}]]</td>
                 </tr>
             </table>
-    </form><br>
+    </form>
+    <br><br>
+    <img height="200px;" class="mt-5" th:src="@{\happyJourney.png}">
 </center>
 </div>
 </body>
+<script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
+<script>
+$(document).on('click','#downloadTicket' ,function(){
+  $.ajax({
+    url: "\downloadTicket",
+    type:"POST",
+    success: function(result){
+      alert("success");
+    }
+  });
+});
+</script>
 </html>

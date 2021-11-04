@@ -18,6 +18,10 @@ public class Ticket {
     public Ticket(Passenger passenger, Train train) {
     }
 
+    public Ticket(String travelDate) {
+        this.travelDate = travelDate;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +

@@ -2,7 +2,7 @@
 box-sizing: border-box;
 }
 body{
-  background: url(ticket.jpg) no-repeat center;
+  background: th:url(@{\ticket.jpg}) no-repeat center;
   background-size: cover;
   height: 500px;
   position: relative;
