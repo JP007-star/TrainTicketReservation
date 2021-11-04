@@ -198,7 +198,7 @@ public class Ticket {
 
                     bufferedWriter.write(p.getName() + "\t\t");
                     bufferedWriter.write(String.valueOf(p.getAge()) + "\t\t");
-                    bufferedWriter.write(p.getGender() + "\t\t1001");
+                    bufferedWriter.write(p.getGender() + "\t\t");
                     bufferedWriter.write(String.valueOf(passengers.get(p)) + "\t\t");
                     bufferedWriter.newLine();
                 }
