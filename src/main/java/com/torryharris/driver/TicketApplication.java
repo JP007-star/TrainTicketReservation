@@ -28,20 +28,10 @@ public class TicketApplication {
             System.out.println(isDateValid(travelDate));
            // System.out.println(ticket.generatePNR());
             if(isDateValid(travelDate)!="TravelDate is before current date!...") {
-                System.out.println("Enter the No of Passengers:");
-                int noOfPassengers = Integer.parseInt(scanner.nextLine());
-                for (int i = 1; i <= noOfPassengers; i++) {
-                    System.out.println("Enter Passenger Name:");
-                    String name = scanner.nextLine();
-                    System.out.println("Enter Age:");
-                    int age = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Enter Gender (M/F):");
-                    char gender = scanner.nextLine().charAt(0);
-                    Passenger passenger = new Passenger(name, age, gender);
-                    ticket.addPassenger(name,age,gender,train);
-
-                }
+                ticket.addPassenger();
+                ticket.writeTicket();
             }
+
         }
         else{
             System.out.println("Train Not Found! ... Retry with correct Train No");

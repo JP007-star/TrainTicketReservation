@@ -1,6 +1,6 @@
 package com.torryharris.model;
 
-public class Passenger {
+public class Passenger implements Comparable<Passenger>{
     String name;
     int age;
     char gender;
@@ -36,6 +36,9 @@ public class Passenger {
         this.gender = gender;
     }
 
+    public Passenger() {
+    }
+
     @Override
     public String toString() {
         return "Passenger{" +
@@ -43,5 +46,10 @@ public class Passenger {
                 ", age=" + age +
                 ", gender=" + gender +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Passenger o) {
+        return this.getName().compareTo(o.getName());
     }
 }
