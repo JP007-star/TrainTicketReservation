@@ -4,11 +4,26 @@ public class Passenger implements Comparable<Passenger>{
     String name;
     int age;
     char gender;
+    double price;
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public Passenger(String name, int age, char gender) {
         this.name = name;
         this.age = age;
         this.gender = gender;
+    }
+    public Passenger(String name, int age, char gender,double price) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.price = price;
     }
 
 

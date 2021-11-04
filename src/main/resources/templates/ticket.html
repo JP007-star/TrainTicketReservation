@@ -53,29 +53,19 @@
                     <th>Gender</th>
                     <th>Fare</th>
                 </tr>
-                <tr>
-                    <td>Ram</td>
-                    <td>35</td>
-                    <td>Male</td>
-                    <td>800</td>
-                </tr>
-                <tr>
-                    <td>Sita</td>
-                    <td>30</td>
-                    <td>Female</td>
-                    <td>600</td>
-                </tr>
-                <tr>
-                    <td>Ajay</td>
-                    <td>65</td>
-                    <td>Male</td>
-                    <td>320</td>
-                </tr>
+                <th:block th:each="passenger:${passengers}">
+                    <tr>
+                        <td>[[${passenger.name}]]</td>
+                        <td>[[${passenger.age}]]</td>
+                        <td>[[${passenger.gender}]]</td>
+                        <td>[[${passenger.price}]]</td>
+                    </tr>
+                </th:block>
             </table>
             <table id="table3" align="left">
                 <tr>
                     <td>Total Price:</td>
-                    <td>1720</td>
+                    <td>[[${totalPrice}]]</td>
                 </tr>
             </table>
         </fieldset>

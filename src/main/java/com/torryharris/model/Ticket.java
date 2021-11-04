@@ -113,7 +113,7 @@ public class Ticket {
     }
 
 
-    private double calcPassengerFare(Passenger passenger){
+    public double calcPassengerFare(Passenger passenger){
 
        if(passenger.getAge()<=12)
         {
@@ -139,7 +139,7 @@ public class Ticket {
         }
 
     }
-    private double calcTotalTicketPrice(){
+    public double calcTotalTicketPrice(){
         double totalPrice = 0.0;
         for (double p : passengers.values()) {
             totalPrice += p;
@@ -195,7 +195,6 @@ public class Ticket {
                 bufferedWriter.newLine();
 
                 for (Passenger p : passengers.keySet()) {
-
                     bufferedWriter.write(p.getName() + "\t\t");
                     bufferedWriter.write(String.valueOf(p.getAge()) + "\t\t");
                     bufferedWriter.write(p.getGender() + "\t\t");
