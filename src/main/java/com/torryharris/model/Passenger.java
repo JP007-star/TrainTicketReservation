@@ -36,6 +36,9 @@ public class Passenger implements Comparable<Passenger>{
         this.gender = gender;
     }
 
+    public Passenger() {
+    }
+
     @Override
     public String toString() {
         return "Passenger{" +

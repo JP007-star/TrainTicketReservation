@@ -3,6 +3,7 @@ package com.torryharris.model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Ticket {
@@ -85,17 +86,30 @@ public class Ticket {
         char destination=train.getDestination().charAt(0);
         String travelDate=getTravelDate();
         String[] dt=getTravelDate().split("-",3);
-        String pnrstring = source+""+destination+"_"+travelDate+"_"+ updateCounter();
+        pnr = source+""+destination+"_"+travelDate+"_"+ updateCounter();
 
-        setPnr(pnrstring);
+
         System.out.println(pnr);
-        return pnrstring;
+        return pnr;
     }
-    public void addPassenger(String name,int age,char gender){
-        Passenger passenger = new Passenger(name, age, gender);
-        passengerArrayList.add(passenger);
-        calcPassengerFare(passenger);
-        passengers.put(passenger,price);
+    public void addPassenger(){
+        Passenger p = new Passenger();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the No of Passengers:");
+        int noOfPassengers = Integer.parseInt(scanner.nextLine());
+        for (int i = 1; i <= noOfPassengers; i++) {
+            System.out.println("Enter Passenger Name:");
+            p.name = scanner.nextLine();
+            System.out.println("Enter Age:");
+            p.age = Integer.parseInt(scanner.nextLine());
+            System.out.println("Enter Gender (M/F):");
+            p.gender = scanner.nextLine().charAt(0);
+
+            Passenger passenger = new Passenger(p.name,p.age,p.gender);
+            passengerArrayList.add(passenger);
+            calcPassengerFare(passenger);
+            passengers.put(passenger, price);
+        }
     }
 
 
@@ -177,17 +191,15 @@ public class Ticket {
                 bufferedWriter.write("Passengers: ");
                 bufferedWriter.newLine();
 
-                bufferedWriter.write("Name    Age    Gender    Fare");
+                bufferedWriter.write("Name\t\tAge\t\tGender\t\tFare");
                 bufferedWriter.newLine();
-                System.out.println(passengers);
-                System.out.println(passengerArrayList);
 
                 for (Passenger p : passengers.keySet()) {
 
-                    bufferedWriter.write(p.getName() + "      ");
-                    bufferedWriter.write(String.valueOf(p.getAge()) + "       ");
-                    bufferedWriter.write(p.getGender() + "        ");
-                    bufferedWriter.write(String.valueOf(passengers.get(p)) + "        ");
+                    bufferedWriter.write(p.getName() + "\t\t");
+                    bufferedWriter.write(String.valueOf(p.getAge()) + "\t\t");
+                    bufferedWriter.write(p.getGender() + "\t\t1001");
+                    bufferedWriter.write(String.valueOf(passengers.get(p)) + "\t\t");
                     bufferedWriter.newLine();
                 }
 
