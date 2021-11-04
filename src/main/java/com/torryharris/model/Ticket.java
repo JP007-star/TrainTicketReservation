@@ -139,7 +139,7 @@ public class Ticket {
         }
 
     }
-    public double calcTotalTicketPrice(){
+    public double calcTotalTicketPrice(TreeMap<Passenger,Double> passengers){
         double totalPrice = 0.0;
         for (double p : passengers.values()) {
             totalPrice += p;
@@ -154,8 +154,8 @@ public class Ticket {
                     + train.getTrainName() + ","
                     + train.getSource() + ","
                     + train.getDestination() + ","
-                    + travelDate + ","
-                    + calcTotalTicketPrice());
+                    + travelDate + ",");
+
 
             return stringBuilder;
         }
@@ -202,7 +202,7 @@ public class Ticket {
                     bufferedWriter.newLine();
                 }
 
-                bufferedWriter.write("Total Price:  " + calcTotalTicketPrice());
+                bufferedWriter.write("Total Price:  " + calcTotalTicketPrice(passengers));
 
             } catch (IOException e) {
                 e.printStackTrace();
