@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <title>Train Ticket Confirmation</title>
     <link type="text/css" th:href="@{\style.css}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" th:href="@{\webjars\bootstrap\4.3.1\css\bootstrap.css}">
 </head>
 <style>
 
 </style>
 <body>
-<h2><center>Ticket Confirmation</center></h2>
+
+<h2 class="col-12"><center>Ticket Confirmation</center></h2>
+
+<button class="float-right mr-5 btn btn-secondary"> Download </button> <br>
+<div class="card m-5 shadow">
 <center>
     <form>
-
-        <fieldset>
             <table id="table1" border="0px" align="left">
                 <tr>
                     <td>PNR</td>
@@ -43,10 +46,7 @@
                     <td><b>Passengers:</b></td>
                 </tr><br>
             </table>
-            <style>
-                td{ padding-right: 50px}
-            </style>
-            <table id="table2" align="left">
+            <table id="table2" class="table-striped shadow" align="left">
                 <tr>
                     <th>Name</th>
                     <th>Age</th>
@@ -61,20 +61,15 @@
                         <td>[[${passenger.price}]]</td>
                     </tr>
                 </th:block>
-            </table>
-            <table id="table3" align="left">
                 <tr>
                     <td>Total Price:</td>
+                    <td></td>
+                    <td></td>
                     <td>[[${totalPrice}]]</td>
                 </tr>
             </table>
-        </fieldset>
-        <table>
-            <tr>
-                <td><button style="border-radius: 5px; box-shadow: 0 2px #D1D0CE; background-color: #FED8B1">Download Ticket</button></a></td>
-            </tr>
-        </table>
     </form><br>
 </center>
+</div>
 </body>
 </html>

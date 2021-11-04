@@ -34,6 +34,7 @@ public class MainController {
 
     @PostMapping("bookTicket")
     public String bookTicket(HttpServletRequest hsr, Model model) throws ParseException {
+        fieldArrayList.clear();
         int trainNo=Integer.parseInt(hsr.getParameter("trainNo"));
         String travelDate=hsr.getParameter("travelDate");
         TrainDAO trainDAO=new TrainDAO();
@@ -67,7 +68,6 @@ public class MainController {
         model.addAttribute("train", train);
         model.addAttribute("travelDate", travelDateFormatted);
         model.addAttribute("passengers", fieldArrayList);
-        model.addAttribute("prices", priceArray);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("pnr", pnr);
        return "ticket";
