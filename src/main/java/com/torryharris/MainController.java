@@ -16,7 +16,6 @@ import java.util.*;
 @Controller
 public class MainController {
     public ArrayList<Passenger> fieldArrayList=new ArrayList<>();
-    public ArrayList<Double> priceArray=new ArrayList<>();
     public TreeMap<Passenger,Double> passengers=new TreeMap<>();
 
     @GetMapping("index")
@@ -61,9 +60,9 @@ public class MainController {
         for(Passenger passengerFields: fieldArrayList) {
             double price=ticket.calcPassengerFare(passengerFields);
             passengers.put(passengerFields,price);
-            priceArray.add(price);
+
         }
-        double totalPrice= calcTotalTicketPrice();
+        double totalPrice=ticket.calcTotalTicketPrice(passengers);
         model.addAttribute("trainNo", trainNo);
         model.addAttribute("train", train);
         model.addAttribute("travelDate", travelDateFormatted);
@@ -77,11 +76,5 @@ public class MainController {
     public String ticket(){
         return "ticket";
     }
-    public double calcTotalTicketPrice(){
-        double totalPrice = 0.0;
-        for (double p : passengers.values()) {
-            totalPrice += p;
-        }
-        return totalPrice;
-    }
+
 }
