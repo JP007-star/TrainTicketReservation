@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Train Ticket Reservation System</title>
     <link type="text/css" th:href="@{\style.css}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" th:href="@{\webjars\bootstrap\4.3.1\css\bootstrap.css}">
 </head>
 <body>
 <div class="menu-bar">
@@ -14,54 +15,52 @@
     </ul>
 </div>
    <br>
-    <div class="container">
-        <form th:action="@{bookTicket}" method="post" >
-            <label for="trainNo">Train No:</label>
-            <input type="text" name="trainNo"  id="trainNo" class="trainInput" placeholder="Enter TrainNO">
-            <label for="travelDate">TravelDate:</label>
-            <input type="date" name="travelDate"  id="travelDate" class="trainInput" placeholder="Enter TravelDate">
-            <label for="noOfPassengers">Passenger:</label>
-            <input type="text" name="noOfPassengers"   id="noOfPassengers" class="trainInput" placeholder="Enter No of passengers">
-           </div> <br><br>
-    <div class="container">
-            <label for="name">Name:</label>
-            <input type="text" name="name"  id="name" class="trainInput" placeholder="Name">
-            <label for="age">Age:</label>
-            <input type="text" name="age"  id="age" class="trainInput" placeholder="Age">
-            <label for="gender" >Gender:</label>
-            <select name="gender" id="gender" >
-                <option>select</option>
-                <option>Male</option>
-                <option>Female</option>
-            </select>
-           <div id="content"></div>
-            <input type="submit" id="submit">
-    </div>
+    <form th:action="@{bookTicket}" method="post"  >
+        <div class="container">
+            <div class="row col-12  justify-content-between">
+                <div class="form-group">
+                    <label for="trainNo">Train No:</label>
+                    <input type="text" name="trainNo"  id="trainNo" class="form-control" placeholder="Enter TrainNO">
+                </div>
+                <div class="form-group">
+                    <label for="travelDate">TravelDate:</label>
+                    <input type="date" name="travelDate"  id="travelDate" class="form-control" placeholder="Enter TravelDate">
+                </div>
+                <div class="form-group">
+                    <label for="noOfPassengers">Passenger:</label>
+                    <input type="text" name="noOfPassengers"   id="noOfPassengers" class="form-control" placeholder="Enter No of passengers">
+                </div>
+            </div>
+        </div><br><br>
+        <div class="container">
+            <div id="content"></div><br>
+            <input type="submit" class="text-center btn-primary" id="submit">
+        </div>
    </form><br>
 <footer>Copyright @ JP 2021</footer>
 </body>
 
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous">
-</script>
+<script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
 <script>
- $('#noOfPassengers').on('input',function(e){
- $('#content').html('');
+$(document).off('input').on('input','#noOfPassengers' ,function(){
   var val=$(this).val();
-  for (let i = 1; i < val; i++) {
-  $('#content').append('<br><label for="name">Name:</label>'+
-          '<input type="text" name="name'+i+'"  id="name" class="trainInput" placeholder="Name">'+
-          '<label for="age">Age:</label>'+
-          '<input type="text" name="age'+i+'"  id="age" class="trainInput" placeholder="Age">'+
-          '<label for="gender" >Gender:&emsp;</label>'+
-          '<select name="gender'+i+'" id="gender" >'+
+  $('#content').html('');
+  for (let i = 1; i <= val; i++) {
+  $('#content').append('<div class="row col-12 m-2 justify-content-between">'+
+                '<div class="form-group"><label for="name'+i+'">Name:</label>'+
+          '<input type="text" name="name'+i+'"  id="name'+i+'" class="form-control" placeholder="Name"></div>'+
+          '<div class="form-group"><label for="age'+i+'">Age:</label>'+
+          '<input type="text" name="age'+i+'"  id="age'+i+'" class="form-control" placeholder="Age"></div>'+
+          '<div class="form-group"><label for="gender'+i+'" >Gender:&emsp;</label><br>'+
+          '<select class="form-select" name="gender'+i+'" id="gender'+i+'" >'+
                '<option value="">select</option>'+
                '<option value="M">Male</option>'+
                '<option value="F">Female</option>'+
-           '</select>');
+           '</select></div></div>');
   }
  });
+
+
  function GetURLParameter(sParam)
 {
     var sPageURL = window.location.search.substring(1);
