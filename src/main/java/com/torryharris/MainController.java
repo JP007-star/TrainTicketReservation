@@ -1,5 +1,11 @@
 package com.torryharris;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfTable;
+import com.lowagie.text.pdf.PdfWriter;
 import com.torryharris.model.Passenger;
 import com.torryharris.model.Ticket;
 import com.torryharris.model.Train;
@@ -10,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +28,8 @@ public class MainController {
     private static final String DATE_FORMAT = "yyyy-MM-dd" ;
     public ArrayList<Passenger> fieldArrayList=new ArrayList<>();
     public TreeMap<Passenger,Double> passengers=new TreeMap<>();
+    String pnr;
+    Train train;
 
     @GetMapping("index")
     public String index(Model model){
@@ -37,15 +47,16 @@ public class MainController {
     @PostMapping("bookTicket")
     public String bookTicket(HttpServletRequest request, Model model) throws ParseException {
         fieldArrayList.clear();
+        passengers.clear();
         double totalPrice=0.0;
         int trainNo=Integer.parseInt(request.getParameter("trainNo"));
         String travelDate=request.getParameter("travelDate");
         TrainDAO trainDAO=new TrainDAO();
-        Train train=trainDAO.findTrain(trainNo);
+        train=trainDAO.findTrain(trainNo);
         Date date = new SimpleDateFormat("yyyy-MM-dd").parse(travelDate);
         String travelDateFormatted = new SimpleDateFormat("dd-MM-yyyy").format(date);
         Ticket ticket=new Ticket(travelDateFormatted,train);
-        String pnr=ticket.generatePNR();
+        pnr=ticket.generatePNR();
         if (request.getParameter("noOfPassengers") != null) {
             int noOfPassengers = Integer.parseInt(request.getParameter("noOfPassengers"));
             for (int i = 1; i <= noOfPassengers; i++) {
@@ -72,15 +83,22 @@ public class MainController {
         model.addAttribute("passengers", fieldArrayList);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("pnr", pnr);
-       return "ticket";
+        return "ticket";
     }
 
-    @PostMapping("downloadTicket")
-    public void  downloadTicket(){
-        Ticket ticket=new Ticket();
-        ticket.addPassenger();
-        ticket.writeTicket();
-    } 
+    @GetMapping("downloadTicket")
+    public void  downloadTicket(HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
+        String headerKey= "Content-Disposition";
+        String headerValue ="attachment; filename="+pnr+".pdf";
+        response.setHeader(headerKey,headerValue);
+        Document document=new Document(PageSize.A4);
+        PdfWriter.getInstance(document,response.getOutputStream());
+        document.open();
+        document.add(new Paragraph("PNR   : "+pnr));
+        document.add(new Paragraph("TRAIN NO   : "+train.getTrainNo()));
+        document.close();
+    }
     @PostMapping("checkTrain")
     public ResponseEntity<?> checkTrain(HttpServletRequest request){
         int trainNo=Integer.parseInt(request.getParameter("trainNo"));

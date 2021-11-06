@@ -12,19 +12,19 @@
 <body>
 <center>
     <div class="col-10 alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>Congratulation! </strong>You have Successfully booked a Ticket.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+        <strong>Congratulation! </strong>You have Successfully booked a Ticket.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
 </center>
-<button class="float-right mr-5 btn btn-secondary" id="downloadTicket"> Download </button> <br>
+<a type="button" class="float-right mr-5 btn btn-secondary" th:href="@{\downloadTicket}"> Download </a> <br>
 <div class="card m-5 mb-5 shadow">
     <center>
         <div class="alert alert-primary" role="alert">
             <h3>INDIAN RAILWAYS</h3>
         </div>
-    <form>
+        <form>
             <table id="table1" border="0px" align="left">
                 <tr>
                     <td>PNR</td>
@@ -76,22 +76,10 @@
                     <td>[[${totalPrice}]]</td>
                 </tr>
             </table>
-    </form>
-    <br><br>
-    <img height="200px;" class="mt-5" th:src="@{\happyJourney.png}">
-</center>
+        </form>
+        <br><br>
+        <img height="200px;" class="mt-5" th:src="@{\happyJourney.png}">
+    </center>
 </div>
 </body>
-<script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
-<script>
-$(document).on('click','#downloadTicket' ,function(){
-  $.ajax({
-    url: "\downloadTicket",
-    type:"POST",
-    success: function(result){
-      alert("success");
-    }
-  });
-});
-</script>
 </html>
