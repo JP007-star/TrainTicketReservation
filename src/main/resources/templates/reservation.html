@@ -15,8 +15,10 @@
     </ul>
 </div>
    <br>
+
     <form th:action="@{bookTicket}" method="post"  >
         <div class="container">
+            <div id="train" style="margin-left:-80px"></div><br>
             <div class="row col-12  justify-content-between">
                 <div class="form-group">
                     <label for="trainNo">Train No:</label>
@@ -45,6 +47,7 @@
 
 <script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
 <script>
+
 $(document).off('input').on('input','#noOfPassengers' ,function(){
   var val=$(this).val();
   $('#content').html('');
@@ -80,6 +83,7 @@ $(document).off('input').on('input','#noOfPassengers' ,function(){
 var trainNo = GetURLParameter('trainNo');
 $('#trainNo').val(trainNo);
 
+
 $(document).on('input','#trainNo' ,function(){
  var trainNo=$(this).val();
  $('#trainNoError').html('');
@@ -88,9 +92,31 @@ $(document).on('input','#trainNo' ,function(){
     type:"POST",
     data:{"trainNo":trainNo},
     success: function(result){
-      if(result!='success'){
-         $('#trainNoError').html(result);
-      }
+    $('#train').html('');
+      if(result!=""){
+         $('#train').html('<table class="table-striped">'+
+                    '<thead>'+
+                    '<th>Train No</th>'+
+                    '<th>Train Name</th>'+
+                    '<th>Source</th>'+
+                    '<th>Destination</th>'+
+                    '<th>Price</th>'+
+                    '</thead>'+
+                    '<tbody>'+
+                    '<tr>'+
+                        '<td>'+result.trainNo+'</td>'+
+                        '<td>'+result.trainName+'</td>'+
+                        '<td>'+result.source+'</td>'+
+                        '<td>'+result.destination+'</td>'+
+                        '<td>'+result.ticketPrice+'</td>'+
+                    '</tr>'+
+                    '</tbody>'+
+                    '</table>');
+     }
+     else if(result==""){
+         $('#train').html('');
+         $('#trainNoError').html("Train is not Available");
+     }
     }
   });
 });

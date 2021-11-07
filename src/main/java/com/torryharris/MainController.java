@@ -148,13 +148,13 @@ public class MainController {
         System.out.println(trainNo);
         TrainDAO trainDAO=new TrainDAO();
         Train train=trainDAO.findTrain(trainNo);
-        String result="";
+        Train result=new Train();
         System.out.println(trainDAO.findTrain(trainNo));
         if(train==null) {
-            result="The Train is not available";
+            result=null;
         }
         else {
-            result = "success";
+            result = train;
         }
         return ResponseEntity.ok(result);
     }
