@@ -3,6 +3,8 @@ package com.torryharris;
 import com.lowagie.text.Document;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,6 +33,8 @@ public class MainController {
     public TreeMap<Passenger,Double> passengers=new TreeMap<>();
     String pnr;
     Train train;
+    String travelDateFormatted;
+    double totalPrice=0.0;
 
     @GetMapping("index")
     public String index(Model model){
@@ -48,13 +53,14 @@ public class MainController {
     public String bookTicket(HttpServletRequest request, Model model) throws ParseException {
         fieldArrayList.clear();
         passengers.clear();
-        double totalPrice=0.0;
+        //double totalPrice=0.0;
         int trainNo=Integer.parseInt(request.getParameter("trainNo"));
         String travelDate=request.getParameter("travelDate");
         TrainDAO trainDAO=new TrainDAO();
         train=trainDAO.findTrain(trainNo);
         Date date = new SimpleDateFormat("yyyy-MM-dd").parse(travelDate);
-        String travelDateFormatted = new SimpleDateFormat("dd-MM-yyyy").format(date);
+        //String travelDateFormatted = new SimpleDateFormat("dd-MM-yyyy").format(date);
+        travelDateFormatted = new SimpleDateFormat("dd-MM-yyyy").format(date);
         Ticket ticket=new Ticket(travelDateFormatted,train);
         pnr=ticket.generatePNR();
         if (request.getParameter("noOfPassengers") != null) {
@@ -95,8 +101,45 @@ public class MainController {
         Document document=new Document(PageSize.A4);
         PdfWriter.getInstance(document,response.getOutputStream());
         document.open();
-        document.add(new Paragraph("PNR   : "+pnr));
-        document.add(new Paragraph("TRAIN NO   : "+train.getTrainNo()));
+
+        PdfPTable table1=new PdfPTable(2);
+        table1.setWidthPercentage(100);
+        table1.getDefaultCell().setBorderColor(Color.WHITE);
+        table1.addCell("PNR");
+        table1.addCell(":"+pnr);
+        table1.addCell("Train no");
+        table1.addCell(String.valueOf(":"+train.getTrainNo()));
+        table1.addCell("Train Name");
+        table1.addCell(":"+train.getTrainName());
+        table1.addCell("From");
+        table1.addCell(":"+train.getSource());
+        table1.addCell("To");
+        table1.addCell(":"+train.getDestination());
+        table1.addCell("Travel Date");
+        table1.addCell(":"+travelDateFormatted);
+        table1.setSpacingAfter(10);
+        document.add(table1);
+
+        document.add(new Paragraph("Passengers:"));
+
+        PdfPTable table2=new PdfPTable(4);
+        table2.setWidthPercentage(100);
+        table2.setSpacingBefore(5);
+        table2.getDefaultCell().setBorderColor(Color.WHITE);
+        table2.addCell("Name");
+        table2.addCell("Age");
+        table2.addCell("Gender");
+        table2.addCell("Fare");
+        for(Passenger passengerFields: fieldArrayList)
+        {
+            table2.addCell(passengerFields.getName());
+            table2.addCell(String.valueOf(passengerFields.getAge()));
+            table2.addCell(String.valueOf(passengerFields.getGender()));
+            table2.addCell(String.valueOf(passengerFields.getPrice()));
+        }
+        table2.setSpacingAfter(10);
+        document.add(table2);
+        document.add(new Paragraph("Total Price:"+totalPrice));
         document.close();
     }
     @PostMapping("checkTrain")

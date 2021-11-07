@@ -14,9 +14,9 @@ public class TrainDAO {
     ArrayList<Train> trainArrayList;
 
     public void dataBaseConnection() throws ClassNotFoundException, SQLException {
-        db_URL = "jdbc:mysql://localhost:3306/trainticketreservationsystem";
+        db_URL = "jdbc:mysql://localhost:3306/trainticket";
         username = "root";
-        password = "Prasad@66";
+        password = "Nigmysql@123";
         driverName = "com.mysql.cj.jdbc.Driver";
         Class.forName(driverName);
         connection = DriverManager.getConnection(db_URL, username, password);
