@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <title>Train Ticket Reservation System</title>
     <link type="text/css" th:href="@{\style.css}" rel="stylesheet">
+<!--    Bootstrap link from webjars-->
     <link type="text/css" rel="stylesheet" th:href="@{\webjars\bootstrap\4.3.1\css\bootstrap.css}">
 </head>
 <body>
+<!--Header Section-->
 <div class="menu-bar shadow">
     <h2 class="heading"><img style="height:50px;" th:src="@{\trainTicket.png}"> &emsp; TRAIN TICKET RESERVATION</h2>
     <ul>
         <li></i><a href="index"> HOME</a></li>
         <li class="active"><a href="reservation"></i> REGISTER</a>
     </ul>
-</div>
-   <br>
-
+</div><br>
     <form th:action="@{bookTicket}" method="post"  >
+<!--        Main Form Section-->
         <div class="container">
             <div id="train" style="margin-left:-80px"></div><br>
             <div class="row col-12  justify-content-between">
@@ -36,10 +37,10 @@
                 </div>
             </div>
         </div><br><br>
+<!--        Dynamic Form Section -->
         <div class="container">
             <div id="content"></div><br>
             <input type="submit" class="text-center btn-primary" id="submit">
-
         </div>
    </form><br>
 <footer>Copyright @ JP 2021</footer>
@@ -47,7 +48,7 @@
 
 <script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
 <script>
-
+<!--this funtion for generating dynamic form feilds-->
 $(document).off('input').on('input','#noOfPassengers' ,function(){
   var val=$(this).val();
   $('#content').html('');
@@ -66,7 +67,7 @@ $(document).off('input').on('input','#noOfPassengers' ,function(){
   }
  });
 
-
+<!--this function is for fetch data from URL-->
  function GetURLParameter(sParam)
 {
     var sPageURL = window.location.search.substring(1);
@@ -83,7 +84,7 @@ $(document).off('input').on('input','#noOfPassengers' ,function(){
 var trainNo = GetURLParameter('trainNo');
 $('#trainNo').val(trainNo);
 
-
+<!--This function is used to find train-->
 $(document).on('input','#trainNo' ,function(){
  var trainNo=$(this).val();
  $('#trainNoError').html('');
@@ -120,6 +121,8 @@ $(document).on('input','#trainNo' ,function(){
     }
   });
 });
+
+<!--This function is used find traveldate-->
 $(document).on('input','#travelDate' ,function(){
  var travelDate=$(this).val();
  $('#travelDateError').html('');
@@ -135,6 +138,6 @@ $(document).on('input','#travelDate' ,function(){
   });
 });
 
-$('.alert').alert()
+
 </script>
 </html>

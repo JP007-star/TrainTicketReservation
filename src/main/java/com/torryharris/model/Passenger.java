@@ -1,5 +1,5 @@
 package com.torryharris.model;
-
+//Passenger POJO Class
 public class Passenger implements Comparable<Passenger>{
     String name;
     int age;

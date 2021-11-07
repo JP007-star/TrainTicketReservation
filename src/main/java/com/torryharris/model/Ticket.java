@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
-
+//Ticket POJO Class
 public class Ticket {
     int counter;
     String pnr;
@@ -83,7 +83,7 @@ public class Ticket {
     }
 
 
-
+   //This function is use to generate PNR number
     public String generatePNR(){
         //Ticket ticket=new Ticket(travelDate,train);
         char source=train.getSource().charAt(0);
@@ -96,6 +96,8 @@ public class Ticket {
         System.out.println(pnr);
         return pnr;
     }
+
+    //This function is used to add passenger to ticket
     public void addPassenger(){
         Passenger p = new Passenger();
         Scanner scanner = new Scanner(System.in);
@@ -116,7 +118,7 @@ public class Ticket {
         }
     }
 
-
+    //This function is to calculate ticket fare for each
     public double calcPassengerFare(Passenger passenger){
 
        if(passenger.getAge()<=12)
@@ -143,6 +145,8 @@ public class Ticket {
         }
 
     }
+
+    //This function is used to calculate Total Ticket Price
     public double calcTotalTicketPrice(TreeMap<Passenger,Double> passengers){
         double totalPrice = 0.0;
         for (double p : passengers.values()) {
@@ -150,71 +154,69 @@ public class Ticket {
         }
         return totalPrice;
     }
+
+    //This function is used to generate ticket
     private StringBuilder generateTicket() {
 
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(getPnr() + ","
-                    + train.getTrainNo() + ","
-                    + train.getTrainName() + ","
-                    + train.getSource() + ","
-                    + train.getDestination() + ","
-                    + travelDate + ",");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getPnr() + ","
+                + train.getTrainNo() + ","
+                + train.getTrainName() + ","
+                + train.getSource() + ","
+                + train.getDestination() + ","
+                + travelDate + ",");
 
 
-            return stringBuilder;
+        return stringBuilder;
+    }
+
+    //This function is used to write ticket
+    public void writeTicket() {
+        File file = new File(generatePNR() + ".txt");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        public void writeTicket() {
-
-            File file = new File(generatePNR() + ".txt");
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try (FileWriter fileWriter = new FileWriter(file, true);
-                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-
-                StringBuilder stringBuilder = generateTicket();
-
-
+        try (FileWriter fileWriter = new FileWriter(file, true);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            StringBuilder stringBuilder = generateTicket();
+            bufferedWriter.newLine();
+            bufferedWriter.newLine();
+            bufferedWriter.write("PNR: " + stringBuilder.toString().split(",")[0]);
+            bufferedWriter.newLine();
+            bufferedWriter.write("Train no: " + stringBuilder.toString().split(",")[1]);
+            bufferedWriter.newLine();
+            bufferedWriter.write("Train name: " + stringBuilder.toString().split(",")[2]);
+            bufferedWriter.newLine();
+            bufferedWriter.write("From: " + stringBuilder.toString().split(",")[3]);
+            bufferedWriter.newLine();
+            bufferedWriter.write("To: " + stringBuilder.toString().split(",")[4]);
+            bufferedWriter.newLine();
+            bufferedWriter.write("Travel Date: " + stringBuilder.toString().split(",")[5]);
+            bufferedWriter.newLine();
+            bufferedWriter.write("Passengers: ");
+            bufferedWriter.newLine();
+            bufferedWriter.write("Name\t\tAge\t\tGender\t\tFare");
+            bufferedWriter.newLine();
+            for (Passenger p : passengers.keySet()) {
+                bufferedWriter.write(p.getName() + "\t\t");
+                bufferedWriter.write(String.valueOf(p.getAge()) + "\t\t");
+                bufferedWriter.write(p.getGender() + "\t\t");
+                bufferedWriter.write(String.valueOf(passengers.get(p)) + "\t\t");
                 bufferedWriter.newLine();
-                bufferedWriter.newLine();
-                bufferedWriter.write("PNR: " + stringBuilder.toString().split(",")[0]);
-                bufferedWriter.newLine();
-                bufferedWriter.write("Train no: " + stringBuilder.toString().split(",")[1]);
-                bufferedWriter.newLine();
-                bufferedWriter.write("Train name: " + stringBuilder.toString().split(",")[2]);
-                bufferedWriter.newLine();
-                bufferedWriter.write("From: " + stringBuilder.toString().split(",")[3]);
-                bufferedWriter.newLine();
-                bufferedWriter.write("To: " + stringBuilder.toString().split(",")[4]);
-                bufferedWriter.newLine();
-                bufferedWriter.write("Travel Date: " + stringBuilder.toString().split(",")[5]);
-                bufferedWriter.newLine();
-
-                bufferedWriter.write("Passengers: ");
-                bufferedWriter.newLine();
-
-                bufferedWriter.write("Name\t\tAge\t\tGender\t\tFare");
-                bufferedWriter.newLine();
-
-                for (Passenger p : passengers.keySet()) {
-                    bufferedWriter.write(p.getName() + "\t\t");
-                    bufferedWriter.write(String.valueOf(p.getAge()) + "\t\t");
-                    bufferedWriter.write(p.getGender() + "\t\t");
-                    bufferedWriter.write(String.valueOf(passengers.get(p)) + "\t\t");
-                    bufferedWriter.newLine();
-                }
-
-                bufferedWriter.write("Total Price:  " + calcTotalTicketPrice(passengers));
-
-            } catch (IOException e) {
-                e.printStackTrace();
             }
 
+            bufferedWriter.write("Total Price:  " + calcTotalTicketPrice(passengers));
 
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
+
+    }
+
+    //This function is used to update counter
     public static int updateCounter()
     {
         String counterFileName="counter.txt";

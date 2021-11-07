@@ -36,6 +36,7 @@ public class MainController {
     String travelDateFormatted;
     double totalPrice=0.0;
 
+    // This Controller function is for loading the index page
     @GetMapping("index")
     public String index(Model model){
         TrainDAO trainDAO=new TrainDAO();
@@ -44,11 +45,15 @@ public class MainController {
         return "index";
     }
 
+
+    // This Controller function is for loading the reservation page
     @GetMapping("reservation")
     public String reservation(){
         return "reservation";
     }
 
+
+    // This Controller function is for loading ticket confirmation page and calculate ticket
     @PostMapping("bookTicket")
     public String bookTicket(HttpServletRequest request, Model model) throws ParseException {
         fieldArrayList.clear();
@@ -92,6 +97,7 @@ public class MainController {
         return "ticket";
     }
 
+    //This controller function is for generating ticket as PDF
     @GetMapping("downloadTicket")
     public void  downloadTicket(HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
@@ -142,6 +148,8 @@ public class MainController {
         document.add(new Paragraph("Total Price:"+totalPrice));
         document.close();
     }
+
+    // This Controller function is used to check the availability of train
     @PostMapping("checkTrain")
     public ResponseEntity<?> checkTrain(HttpServletRequest request){
         int trainNo=Integer.parseInt(request.getParameter("trainNo"));
@@ -158,6 +166,8 @@ public class MainController {
         }
         return ResponseEntity.ok(result);
     }
+
+    //This function is used check is date is valid
     @PostMapping("checkTravelDate")
     public ResponseEntity<?> checkTravelDate(HttpServletRequest request){
         String travelDate=request.getParameter("travelDate");
@@ -165,6 +175,8 @@ public class MainController {
         String travelDateStatus=isDateValid(travelDate);
         return ResponseEntity.ok(travelDateStatus);
     }
+
+    //This function is used check the valid date
     public static String isDateValid(String date)
     {
         try {

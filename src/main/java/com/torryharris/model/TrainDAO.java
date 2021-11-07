@@ -13,6 +13,7 @@ public class TrainDAO {
     Train train;
     ArrayList<Train> trainArrayList;
 
+    //This function test connection with mysql DB
     public void dataBaseConnection() throws ClassNotFoundException, SQLException {
         db_URL = "jdbc:mysql://localhost:3306/trainticketreservationsystem";
         username = "root";
@@ -23,6 +24,7 @@ public class TrainDAO {
         statement = connection.createStatement();
     }
 
+    //This function is used to find train by ID
     public Train findTrain(int trainNO)  throws NullPointerException  {
         try {
             dataBaseConnection();
@@ -43,6 +45,8 @@ public class TrainDAO {
         }
         return train;
     }
+
+    //This function is used to fetch all train from database
     public ArrayList<Train> fetchTrains()  throws NullPointerException  {
         try {
             dataBaseConnection();

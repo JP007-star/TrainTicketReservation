@@ -1,5 +1,5 @@
 package com.torryharris.model;
-
+//Train POJO class
 public class Train {
     int trainNo;
     String trainName;

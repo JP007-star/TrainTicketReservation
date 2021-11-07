@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Train Ticket Reservation System</title>
     <link type="text/css" th:href="@{\style.css}" rel="stylesheet">
+<!--    Bootstrap link from webjars-->
     <link type="text/css" rel="stylesheet" th:href="@{\webjars\bootstrap\4.3.1\css\bootstrap.css}">
 </head>
 <body>
-
+<!--Header Section-->
 <div class="menu-bar shadow">
     <h2 class="heading"><img style="height:50px;" th:src="@{\trainTicket.png}">  &emsp; TRAIN TICKET RESERVATION</h2>
     <ul>
@@ -15,6 +16,7 @@
         <li><a href="reservation"></i>REGISTER</a>
     </ul>
 </div><br>
+<!--Trains Table from Backend-->
 <table class="table-striped" >
     <thead>
     <th>Train No</th>
@@ -35,12 +37,14 @@
     </th:block>
     </tbody>
 </table><br>
+<!--Footer Section-->
 <footer>Copyright @ JP 2021</footer>
 </body>
 <script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
 
 <script>
-// this function is for making the whole row as clickable
+
+<!-- this function is for making the whole row as clickable-->
 
     $(".clickable-row").click(function() {
         window.location = $(this).data("href");
