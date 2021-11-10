@@ -131,7 +131,7 @@ public class MainController {
         PdfPTable table2=new PdfPTable(4);
         table2.setWidthPercentage(100);
         table2.setSpacingBefore(5);
-        table2.getDefaultCell().setBorderColor(Color.WHITE);
+        table2.getDefaultCell().setBorderColor(Color.BLACK);
         table2.addCell("Name");
         table2.addCell("Age");
         table2.addCell("Gender");
