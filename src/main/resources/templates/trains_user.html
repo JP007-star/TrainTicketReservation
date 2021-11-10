@@ -6,9 +6,7 @@
     <link type="text/css" th:href="@{\css\style.css}" rel="stylesheet">
     <!--    Bootstrap link from webjars-->
     <script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
-
     <link type="text/css" rel="stylesheet" th:href="@{\webjars\bootstrap\4.3.1\css\bootstrap.css}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script type="text/javascript"  th:src="@{\webjars\bootstrap\4.3.1\js\bootstrap.js}"></script>
 </head>
 <body>
@@ -18,12 +16,10 @@
     <ul>
         <li><a href="index"></i> HOME</a>
         <li class="active"></i><a href="trains">TRAINS</a></li>
-        <li><a th:href="@{/logout}"><b-avatar></b-avatar> &emsp;LOGOUT</a></li>
+        <li><a th:href="@{/logout}">LOGOUT</a></li>
     </ul>
 </div><br>
-<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#AddTrainModal">
-    Add Train
-</button><br><br>
+
 <!--Trains Table from Backend-->
 <table class="table-striped shadow" >
     <thead>
@@ -32,50 +28,22 @@
     <th>Source</th>
     <th>Destination</th>
     <th>Price</th>
-    <th>Action</th>
     </thead>
     <tbody>
     <th:block th:each="train:${trainList}">
-        <tr  th:data-href="@{reservation?(trainNo=${train.trainNo})}">
+        <tr class='clickable-row' th:data-href="@{reservation?(trainNo=${train.trainNo})}">
             <td>[[${train.trainNo}]]</td>
             <td>[[${train.trainName}]]</td>
             <td>[[${train.source}]]</td>
             <td>[[${train.destination}]]</td>
             <td>[[${train.ticketPrice}]]</td>
-            <td><i type="button" class="bi bi-pen btn btn-primary"></i>&emsp;
-                <i type="button" class="bi bi-trash btn btn-danger"></i></td>
         </tr>
     </th:block>
     </tbody>
 </table><br>
 
 </body>
-<!-- Modal -->
-<div class="modal fade" id="AddTrainModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width:1200px; left:-350px;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add Train</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form th:action="@{addTrain}" method="post"  >
-                <div class="form-group">
-                    <label for="noOfTrains">No of Trains:</label>
-                    <input type="number" name="noOfTrains" max="6"     id="noOfTrains" class="form-control" required placeholder="Enter No of Trains">
-                </div>
-                <div id="content"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="submit" class="btn btn-primary"/>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 <script>
