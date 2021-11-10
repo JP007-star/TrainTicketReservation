@@ -2,7 +2,6 @@
 box-sizing: border-box;
 }
 body{
-  background: th:url(@{\ticket.jpg}) no-repeat center;
   background-size: cover;
   height: 500px;
   position: relative;
@@ -26,7 +25,6 @@ input,select {
   padding: 15px;
   width:850px !important;
   margin-left:200px;
-  box-shadow: 10px 10px 8px #888888;
   opacity:0.9;
 }
 #submit {
