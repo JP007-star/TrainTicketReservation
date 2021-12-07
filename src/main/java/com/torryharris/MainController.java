@@ -3,10 +3,7 @@ package com.torryharris;
 import com.lowagie.text.Document;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.torryharris.model.Passenger;
 import com.torryharris.model.Ticket;
@@ -36,20 +33,31 @@ public class MainController {
     String travelDateFormatted;
     double totalPrice=0.0;
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+
     // This Controller function is for loading the index page
-    @GetMapping("index")
+    @GetMapping("/trains")
     public String index(Model model){
         TrainDAO trainDAO=new TrainDAO();
         ArrayList<Train> trainArrayList= trainDAO.fetchTrains();
         model.addAttribute("trainList",trainArrayList);
-        return "index";
+        return "trains";
     }
 
 
     // This Controller function is for loading the reservation page
-    @GetMapping("reservation")
-    public String reservation(){
-        return "reservation";
+    @GetMapping("/index")
+    public String reservation(Model model){
+        TrainDAO trainDAO=new TrainDAO();
+        ArrayList<String> source=trainDAO.fetchSource();
+        ArrayList<String> destination=trainDAO.fetchDestination();
+        model.addAttribute("sources",source);
+        model.addAttribute("destinations",destination);
+        return "index";
     }
 
 
@@ -158,6 +166,24 @@ public class MainController {
         Train train=trainDAO.findTrain(trainNo);
         Train result=new Train();
         System.out.println(trainDAO.findTrain(trainNo));
+        if(train==null) {
+            result=null;
+        }
+        else {
+            result = train;
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    // This Controller function is used to check the availability of train
+    @PostMapping("checkSourceDestination")
+    public ResponseEntity<?> checkSourceDestination(HttpServletRequest request){
+        String source=request.getParameter("source");
+        String destination=request.getParameter("destination");
+        System.out.println(source);
+        TrainDAO trainDAO=new TrainDAO();
+        Train train=trainDAO.findTrainBySource(source,destination);
+        Train result=new Train();
         if(train==null) {
             result=null;
         }

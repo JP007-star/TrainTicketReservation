@@ -1,53 +1,225 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Train Ticket Reservation System</title>
-    <link type="text/css" th:href="@{\style.css}" rel="stylesheet">
+    <link type="text/css" th:href="@{\css\style.css}" rel="stylesheet">
 <!--    Bootstrap link from webjars-->
     <link type="text/css" rel="stylesheet" th:href="@{\webjars\bootstrap\4.3.1\css\bootstrap.css}">
+    <script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
 </head>
 <body>
 <!--Header Section-->
 <div class="menu-bar shadow">
-    <h2 class="heading"><img style="height:50px;" th:src="@{\trainTicket.png}">  &emsp; TRAIN TICKET RESERVATION</h2>
+    <h2 class="heading"><img style="height:50px;" th:src="@{\img\trainTicket.png}"> &emsp; TRAIN TICKET RESERVATION</h2>
     <ul>
-        <li class="active"></i><a href="index"> HOME</a></li>
-        <li><a href="reservation"></i>REGISTER</a>
+        <li class="active"><a href="index"></i> HOME</a>
+        <li></i><a href="trains">TRAINS</a></li>
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">LOGOUT</a></li>
     </ul>
 </div><br>
-<!--Trains Table from Backend-->
-<table class="table-striped shadow" >
-    <thead>
-    <th>Train No</th>
-    <th>Train Name</th>
-    <th>Source</th>
-    <th>Destination</th>
-    <th>Price</th>
-    </thead>
-    <tbody>
-    <th:block th:each="train:${trainList}">
-        <tr class='clickable-row' th:data-href="@{reservation?(trainNo=${train.trainNo})}">
-            <td>[[${train.trainNo}]]</td>
-            <td>[[${train.trainName}]]</td>
-            <td>[[${train.source}]]</td>
-            <td>[[${train.destination}]]</td>
-            <td>[[${train.ticketPrice}]]</td>
-        </tr>
-    </th:block>
-    </tbody>
-</table><br>
+<!--        Main Form Section-->
+<form th:action="@{bookTicket}" method="post"  >
+        <div class="container shadow">
+            <div id="train" style="margin-left:-80px"></div><br>
+            <div class="row col-12  justify-content-between">
+                <div class="form-group">
+                    <label>Source</label>
+                    <select class="form-control select2 select2-hidden-accessible" id="source" name="source" style="width:100%"; tabindex="-1" aria-hidden="true">
+                        <option> </option>
+                        <th:block th:each="source:${sources}">
+                                <option>[[${source}]]</option>
+                        </th:block>
+                </select>
+                </div>
+                <div class="form-group">
+                    <label>Destination</label>
+                    <select class="form-control select2 select2-hidden-accessible" name="destination" id="destination" style="width:100%"; tabindex="-1" aria-hidden="true">
+                        <option> </option>
+                        <th:block th:each="destination:${destinations}">
+                            <option>[[${destination}]]</option>
+                        </th:block>
+                </select>
+                </div>
+                <div class="form-group p-0 m-0">
+                    <label for="trainNo">Train No:</label>
+                    <input type="number" name="trainNo"   id="trainNo" class="form-control" placeholder="Enter TrainNO" required>
+                    <small id="trainNoError" style="color:red !important;" class="form-text text-muted"></small>
+                </div>
+                <div class="form-group">
+                    <label for="travelDate">TravelDate:</label>
+                    <input type="date" name="travelDate"  id="travelDate" class="form-control" placeholder="Enter TravelDate" required>
+                    <small id="travelDateError" style="color:red !important;" class="form-text text-muted"></small>
+                </div>
+                <div class="form-group p-0 m-0">
+                    <label for="noOfPassengers">Passenger:</label>
+                    <input type="number" name="noOfPassengers" max="6"     id="noOfPassengers" class="form-control" required placeholder="Enter No of passengers">
+                </div>
+            </div>
+        </div><br><br>
+<!--        Dynamic Form Section -->
+        <div class="container shadow">
+            <div id="content"></div><br>
+            <input type="submit" class="text-center btn-primary" id="submit">
+        </div>
+   </form><br>
 
 </body>
-<script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
+
 
 <script>
+<!--this funtion for generating dynamic form feilds-->
+$(document).off('input').on('input','#noOfPassengers' ,function(){
+  var val=$(this).val();
+  if(val<=6){
+  $('#content').html('');
+  for (let i = 1; i <= val; i++) {
+  $('#content').append('<div class="row col-10 m-3 p-0 justify-content-between">'+
+                '<div class="form-group"><label for="name'+i+'">Name:</label>'+
+          '<input type="text" name="name'+i+'"  id="name'+i+'" class="form-control" placeholder="Name"></div>'+
+          '<div class="form-group"><label for="age'+i+'">Age:</label>'+
+          '<input type="text" name="age'+i+'"  id="age'+i+'" class="form-control" placeholder="Age"></div>'+
+          '<div class="form-group"><label for="gender'+i+'" >Gender:&emsp;</label><br>'+
+          '<select class="form-select" name="gender'+i+'" id="gender'+i+'" >'+
+               '<option value="">select</option>'+
+               '<option value="M">Male</option>'+
+               '<option value="F">Female</option>'+
+           '</select></div></div>');
+  }
+  }
+  else alert("No of Passenger must be less than 6");
+ });
 
-<!-- this function is for making the whole row as clickable-->
+<!--this function is for fetch data from URL-->
+ function GetURLParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+            return decodeURIComponent(sParameterName[1]);
+        }
+    }
+}
+$(document).ready(function() {
+$('.select2').select2({
+closeOnSelect: false
+});
+});
+var trainNo = GetURLParameter('trainNo');
+$('#trainNo').val(trainNo);
 
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
+<!--This function is used to find train-->
+$(document).on('input','#trainNo' ,function(){
+ var trainNo=$(this).val();
+ $('#trainNoError').html('');
+  $.ajax({
+    url: "\checkTrain",
+    type:"POST",
+    data:{"trainNo":trainNo},
+    success: function(result){
+    $('#train').html('');
+      if(result!=""){
+         $('#train').html('<table class="table-striped">'+
+                    '<thead>'+
+                    '<th>Train No</th>'+
+                    '<th>Train Name</th>'+
+                    '<th>Source</th>'+
+                    '<th>Destination</th>'+
+                    '<th>Price</th>'+
+                    '</thead>'+
+                    '<tbody>'+
+                    '<tr>'+
+                        '<td>'+result.trainNo+'</td>'+
+                        '<td>'+result.trainName+'</td>'+
+                        '<td>'+result.source+'</td>'+
+                        '<td>'+result.destination+'</td>'+
+                        '<td>'+result.ticketPrice+'</td>'+
+                    '</tr>'+
+                    '</tbody>'+
+                    '</table>');
+     }
+     else if(result==""){
+         $('#train').html('');
+         $('#trainNoError').html("Train is not Available");
+     }
+    }
+  });
+});
+var destination=null;
+<!--This function is used to find train-->
+$(document).on('select2:select','#source' ,function(){
+ var source=$(this).val();
+ if(source==destination) {
+ alert("Source and destination can't be same");
+ $('#train').html('');
+ }
+ $(document).on('select2:select','#destination' ,function(){
+ destination=$(this).val();
+ $('#train').html('');
+  $.ajax({
+    url: "\checkSourceDestination",
+    type:"POST",
+    data:{"source":source,
+          "destination":destination},
+    success: function(result){
+    $('#train').html('');
+    $('#trainNoError').html('');
+      if(result!=""){
+         $('#trainNo').val(result.trainNo);
+         $('#train').html('<table class="table-striped">'+
+                    '<thead>'+
+                    '<th>Train No</th>'+
+                    '<th>Train Name</th>'+
+                    '<th>Source</th>'+
+                    '<th>Destination</th>'+
+                    '<th>Price</th>'+
+                    '</thead>'+
+                    '<tbody>'+
+                    '<tr>'+
+                        '<td>'+result.trainNo+'</td>'+
+                        '<td>'+result.trainName+'</td>'+
+                        '<td>'+result.source+'</td>'+
+                        '<td>'+result.destination+'</td>'+
+                        '<td>'+result.ticketPrice+'</td>'+
+                    '</tr>'+
+                    '</tbody>'+
+                    '</table>');
+     }
+     else if(result==""){
+         $('#train').html('');
+         $('#trainNoError').html("Train is not Available");
+     }
+    }
+  });
+  });
+});
+
+<!--This function is used verify traveldate-->
+$(document).on('input','#travelDate' ,function(){
+ var travelDate=$(this).val();
+ $('#travelDateError').html('');
+  $.ajax({
+    url: "\checkTravelDate",
+    type:"POST",
+    data:{"travelDate":travelDate},
+    success: function(result){
+      if(result!='success'){
+         $('#travelDateError').html(result);
+      }
+    }
+  });
+});
+
+
+
 
 </script>
 </html>

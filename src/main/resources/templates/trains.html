@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Train Ticket Reservation System</title>
+    <link type="text/css" th:href="@{\css\style.css}" rel="stylesheet">
+    <!--    Bootstrap link from webjars-->
+    <link type="text/css" rel="stylesheet" th:href="@{\webjars\bootstrap\4.3.1\css\bootstrap.css}">
+</head>
+<body>
+<!--Header Section-->
+<div class="menu-bar shadow">
+    <h2 class="heading"><img style="height:50px;" th:src="@{\img\trainTicket.png}">  &emsp; TRAIN TICKET RESERVATION</h2>
+    <ul>
+        <li><a href="index"></i> HOME</a>
+        <li class="active"></i><a href="trains">TRAINS</a></li>
+        <li><a th:href="@{/logout}">LOGOUT</a></li>
+    </ul>
+</div><br>
+<!--Trains Table from Backend-->
+<table class="table-striped shadow" >
+    <thead>
+    <th>Train No</th>
+    <th>Train Name</th>
+    <th>Source</th>
+    <th>Destination</th>
+    <th>Price</th>
+    </thead>
+    <tbody>
+    <th:block th:each="train:${trainList}">
+        <tr class='clickable-row' th:data-href="@{reservation?(trainNo=${train.trainNo})}">
+            <td>[[${train.trainNo}]]</td>
+            <td>[[${train.trainName}]]</td>
+            <td>[[${train.source}]]</td>
+            <td>[[${train.destination}]]</td>
+            <td>[[${train.ticketPrice}]]</td>
+        </tr>
+    </th:block>
+    </tbody>
+</table><br>
+
+</body>
+<script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
+
+<script>
+
+<!-- this function is for making the whole row as clickable-->
+
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+
+</script>
+</html>

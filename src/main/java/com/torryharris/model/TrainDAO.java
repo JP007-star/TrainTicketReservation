@@ -24,6 +24,7 @@ public class TrainDAO {
         statement = connection.createStatement();
     }
 
+
     //This function is used to find train by ID
     public Train findTrain(int trainNO)  throws NullPointerException  {
         try {
@@ -72,6 +73,74 @@ public class TrainDAO {
             return null;
         }
         return trainArrayList;
+    }
+
+    public ArrayList<String> fetchSource() {
+        ArrayList<String> source=null;
+        try {
+            dataBaseConnection();
+            String query = "select source from Trains";
+            ResultSet result = statement.executeQuery(query);
+            source=new ArrayList<>();
+            while (result.next()) {
+                String sourceValue = result.getString("SOURCE");
+                source.add(sourceValue);
+            }
+
+        }
+        catch (SQLException | ClassNotFoundException  exception){
+
+        }
+
+        if(source==null){
+            return null;
+        }
+        return source;
+    }
+
+    public ArrayList<String> fetchDestination() {
+        ArrayList<String> destination=null;
+        try {
+            dataBaseConnection();
+            String query = "select destination from Trains";
+            ResultSet result = statement.executeQuery(query);
+            destination=new ArrayList<>();
+            while (result.next()) {
+                String destinationValue = result.getString("DESTINATION");
+                destination.add(destinationValue);
+            }
+
+        }
+        catch (SQLException | ClassNotFoundException  exception){
+
+        }
+
+        if(destination==null){
+            return null;
+        }
+        return destination;
+    }
+
+    public Train findTrainBySource(String source, String destination) {
+        try {
+            dataBaseConnection();
+            String query = "select * from Trains where source='" +source+"' && destination='"+destination+"'";
+            ResultSet result = statement.executeQuery(query);
+            result.next();
+            int trainNO=result.getInt("TRAIN_NO");
+            String trainName = result.getString("TRAIN_NAME");
+            String sourceResult = result.getString("SOURCE");
+            String destinationResult = result.getString("DESTINATION");
+            double trainPrice = result.getFloat("TICKET_PRICE");
+            train = new Train(trainNO, trainName, sourceResult, destinationResult, trainPrice);
+        }
+        catch (SQLException | ClassNotFoundException  exception){
+
+        }
+        if(train==null){
+            return null;
+        }
+        return train;
     }
 }
 
