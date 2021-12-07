@@ -5,7 +5,9 @@
     <title>Train Ticket Reservation System</title>
     <link type="text/css" th:href="@{\css\style.css}" rel="stylesheet">
     <!--    Bootstrap link from webjars-->
+    <script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
     <link type="text/css" rel="stylesheet" th:href="@{\webjars\bootstrap\4.3.1\css\bootstrap.css}">
+    <script type="text/javascript"  th:src="@{\webjars\bootstrap\4.3.1\js\bootstrap.js}"></script>
 </head>
 <body>
 <!--Header Section-->
@@ -17,6 +19,9 @@
         <li><a th:href="@{/logout}">LOGOUT</a></li>
     </ul>
 </div><br>
+<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#AddTrainModal">
+    Add Train
+</button><br><br>
 <!--Trains Table from Backend-->
 <table class="table-striped shadow" >
     <thead>
@@ -40,7 +45,33 @@
 </table><br>
 
 </body>
-<script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
+<!-- Modal -->
+<div class="modal fade" id="AddTrainModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:1200px; left:-350px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Train</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{addTrain}" method="post"  >
+                <div class="form-group">
+                    <label for="noOfTrains">No of Trains:</label>
+                    <input type="number" name="noOfTrains" max="6"     id="noOfTrains" class="form-control" required placeholder="Enter No of Trains">
+                </div>
+                <div id="content"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
 
@@ -49,6 +80,29 @@
     $(".clickable-row").click(function() {
         window.location = $(this).data("href");
     });
+
+    <!--this funtion for generating dynamic form feilds-->
+$(document).off('input').on('input','#noOfTrains' ,function(){
+  var val=$(this).val();
+  if(val<=5){
+  $('#content').html('');
+  for (let i = 1; i <= val; i++) {
+  $('#content').append('<div class="row col-12 justify-content-between">'+
+                '<div class="form-group"><label for="trainNo'+i+'">Train No:</label>'+
+          '<input type="text" name="trainNo'+i+'"  id="trainNO'+i+'" class="form-control" placeholder="Train No"></div>'+
+          '<div class="form-group"><label for="trainName'+i+'">Train Name:</label>'+
+          '<input type="text" name="trainName'+i+'"  id="trainName'+i+'" class="form-control" placeholder="Train No"></div>'+
+          '<div class="form-group"><label for="source'+i+'">Source:</label>'+
+          '<input type="text" name="source'+i+'"  id="source'+i+'" class="form-control" placeholder="Source"></div>'+
+          '<div class="form-group"><label for="destination'+i+'" >Destination :&emsp;</label><br>'+
+         '<input type="text" name="destination'+i+'"  id="destination'+i+'" class="form-control" placeholder="Destination"></div>'+
+             '<div class="form-group"><label for="price'+i+'" >Price :&emsp;</label><br>'+
+         '<input type="text" name="price'+i+'"  id="price'+i+'" class="form-control" placeholder="Price"></div>'+
+           '</div></div>');
+  }
+  }
+  else alert("No of Passenger must be less than 5");
+ });
 
 </script>
 </html>

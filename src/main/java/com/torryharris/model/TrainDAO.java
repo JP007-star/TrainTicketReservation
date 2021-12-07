@@ -46,6 +46,25 @@ public class TrainDAO {
         }
         return train;
     }
+    public String addTrain(ArrayList<Train> trainArray) throws NullPointerException {
+        try {
+            dataBaseConnection();
+            ArrayList<Train> trainArrayList =trainArray;
+            for (Train train:trainArrayList) {
+                String insertQuery = "insert into trains values(" + train.getTrainNo() + ",'" + train.getTrainName() + "','" + train.getSource() + "','" + train.getDestination()+"'," + train.getTicketPrice() + ");";
+                System.out.println(insertQuery);
+                statement.execute(insertQuery);
+            }
+
+        }
+        catch (SQLException | ClassNotFoundException  exception){
+
+        }
+
+
+        return "success";
+
+    }
 
     //This function is used to fetch all train from database
     public ArrayList<Train> fetchTrains()  throws NullPointerException  {

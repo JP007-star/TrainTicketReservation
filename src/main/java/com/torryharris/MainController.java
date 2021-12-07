@@ -104,7 +104,27 @@ public class MainController {
         model.addAttribute("pnr", pnr);
         return "ticket";
     }
+    @PostMapping("addTrain")
+    public String addTrain(HttpServletRequest request, Model model) throws ParseException {
+        ArrayList<Train> trainArrayList=new ArrayList<>();
+        if (request.getParameter("noOfTrains") != null) {
+            int noOfPassengers = Integer.parseInt(request.getParameter("noOfTrains"));
+            for (int i = 1; i <= noOfPassengers; i++) {
+                int trainNo = Integer.parseInt(request.getParameter("trainNo" + String.valueOf(i)));
+                String trainName= request.getParameter("trainName" + String.valueOf(i));
+                String source= request.getParameter("source" + String.valueOf(i));
+                String destination= request.getParameter("destination" + String.valueOf(i));
+                double price = Integer.parseInt(request.getParameter("price" + String.valueOf(i)));
 
+                Train train=new Train(trainNo,trainName,source,destination,price);
+                trainArrayList.add(train);
+                System.out.println(trainArrayList);
+            }
+            TrainDAO trainDAO=new TrainDAO();
+            trainDAO.addTrain(trainArrayList);
+        }
+        return "redirect:/trains";
+    }
     //This controller function is for generating ticket as PDF
     @GetMapping("downloadTicket")
     public void  downloadTicket(HttpServletResponse response) throws IOException {
