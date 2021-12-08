@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
 <head>
     <meta charset="UTF-8">
     <title>Train Ticket Reservation System</title>
@@ -21,9 +22,11 @@
         <li><a th:href="@{/logout}"> <i class="bi bi-box-arrow-right"></i> LOGOUT</a></li>
     </ul>
 </div><br>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
 <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#AddTrainModal">
     Add Train
 </button><br><br>
+</div>
 <!--Trains Table from Backend-->
 <table class="table-striped shadow" >
     <thead>
@@ -32,7 +35,9 @@
     <th>Source</th>
     <th>Destination</th>
     <th>Price</th>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
     <th>Action</th>
+    </div>
     </thead>
     <tbody>
     <th:block th:each="train:${trainList}">
@@ -42,8 +47,10 @@
             <td>[[${train.source}]]</td>
             <td>[[${train.destination}]]</td>
             <td>[[${train.ticketPrice}]]</td>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
             <td><i type="button" th:data-train="(${train.trainNo})" id="edit-train" class="bi bi-pen btn btn-primary" ></i>&emsp;
                 <i type="button" th:data-train="(${train.trainNo})" id="delete-train" class="bi bi-trash btn btn-danger" ></i></td>
+            </div>
         </tr>
     </th:block>
     </tbody>
