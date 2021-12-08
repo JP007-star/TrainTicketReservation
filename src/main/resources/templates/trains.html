@@ -207,12 +207,7 @@ $(document).on('click','#delete-train-button' ,function(){
     type:"POST",
     data:{"trainNo":trainNo},
     success: function(result){
-      if(result!=""){
-
-     }
-     else if(result==""){
-
-     }
+    alert("Train Successfully Deleted");
     }
   });
 });

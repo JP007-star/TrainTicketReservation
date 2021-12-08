@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -123,6 +124,14 @@ public class MainController {
             TrainDAO trainDAO=new TrainDAO();
             trainDAO.addTrain(trainArrayList);
         }
+        return "redirect:/trains";
+    }
+    @PostMapping("deleteTrain")
+    public String deleteTrain(HttpServletRequest request, Model model) throws SQLException, ClassNotFoundException {
+        String trainNo=request.getParameter("trainNo");
+        System.out.println(trainNo);
+        TrainDAO trainDAO=new TrainDAO();
+        trainDAO.deleteTrain(trainNo);
         return "redirect:/trains";
     }
     //This controller function is for generating ticket as PDF
