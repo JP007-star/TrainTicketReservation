@@ -18,7 +18,7 @@
     <ul>
         <li><a href="index"></i> HOME</a>
         <li class="active"></i><a href="trains">TRAINS</a></li>
-        <li><a th:href="@{/logout}"><b-avatar></b-avatar> &emsp;LOGOUT</a></li>
+        <li><a th:href="@{/logout}"> <i class="bi bi-box-arrow-right"></i> LOGOUT</a></li>
     </ul>
 </div><br>
 <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#AddTrainModal">
@@ -42,8 +42,8 @@
             <td>[[${train.source}]]</td>
             <td>[[${train.destination}]]</td>
             <td>[[${train.ticketPrice}]]</td>
-            <td><i type="button" class="bi bi-pen btn btn-primary" data-toggle="modal" data-target="#UpdateTrain"></i>&emsp;
-                <i type="button" class="bi bi-trash btn btn-danger" data-toggle="modal" data-target="#DeleteTrain"></i></td>
+            <td><i type="button" th:data-train="(${train.trainNo})" id="edit-train" class="bi bi-pen btn btn-primary" ></i>&emsp;
+                <i type="button" th:data-train="(${train.trainNo})" id="delete-train" class="bi bi-trash btn btn-danger" ></i></td>
         </tr>
     </th:block>
     </tbody>
@@ -90,7 +90,7 @@
             </div>
             <div class="modal-body">
                 <form th:action="@{updateTrain}" method="post">
-                    <div class="row col-12 justify-content-between">
+                    <div class="col-12 justify-content-between">
                       <div class="form-group">
                         <label for="trainNo">Train No:</label>
                         <input type="text" name="trainNo"  id="trainNo" class="form-control" placeholder="Train No">
@@ -130,7 +130,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" id="delete-train-button" data-train="" class="btn btn-danger">Delete</button>
                 </form>
             </div>
         </div>
@@ -168,6 +168,53 @@ $(document).off('input').on('input','#noOfTrains' ,function(){
   }
   else alert("No of Passenger must be less than 5");
  });
+<!--This function is used to find train-->
+$(document).on('click','#edit-train' ,function(){
+ var trainNo=$(this).attr('data-train');
+  $.ajax({
+    url: "\checkTrain",
+    type:"POST",
+    data:{"trainNo":trainNo},
+    success: function(result){
+      if(result!=""){
+        $('#trainNo').val(result.trainNo);
+        $('#trainName').val(result.trainName);
+        $('#source').val(result.source);
+        $('#destination').val(result.destination);
+        $('#price').val(result.ticketPrice);
+     }
+     else if(result==""){
+        $('#trainNo').val('');
+        $('#trainName').val('');
+        $('#source').val('');
+        $('#destination').val('');
+        $('#price').val('');
+     }
+    }
+  });
+  $('#UpdateTrain').modal('show');
+});
+<!--This function is used to find train-->
+$(document).on('click','#delete-train' ,function(){
+ var trainNo=$(this).attr('data-train');
+  $('#delete-train-button').attr('data-train',trainNo);
+  $('#DeleteTrain').modal('show');
+});
+$(document).on('click','#delete-train-button' ,function(){
+ var trainNo=$(this).attr('data-train');
+  $.ajax({
+    url: "\deleteTrain",
+    type:"POST",
+    data:{"trainNo":trainNo},
+    success: function(result){
+      if(result!=""){
 
+     }
+     else if(result==""){
+
+     }
+    }
+  });
+});
 </script>
 </html>

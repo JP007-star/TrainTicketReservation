@@ -7,10 +7,13 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
+   <div class="row justify-content-center">
+   <div class="col-5">
 
-	<div class="container card m-3 p-3">
+   </div>
+	<div class="container card col-6  mt-5 p-3">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-12 col-md-offset-3">
 
 				<!-- success message -->
 				<div th:if="${param.success}">
@@ -18,7 +21,7 @@
 						to our awesome app!</div>
 				</div>
 
-				<h1>Registration</h1>
+				<h5>Registration</h5>
 
 				<form th:action="@{/registration}" method="post" th:object="${user}">
 					<div class="form-group">
@@ -54,5 +57,6 @@
 			</div>
 		</div>
 	</div>
+   </div>
 </body>
 </html>
