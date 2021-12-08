@@ -24,9 +24,8 @@
 </center>
 <!--Button for download Ticket as Pdf-->
 
-<a type="button" class="float-right mr-5 btn btn-secondary" data-toggle="modal" data-target="#PaymentModal" >Make Payement </a>
-
-<a type="button" class="float-right mr-5 btn btn-secondary" th:href="@{\downloadTicket}"> Download </a>
+<a type="button" class="float-right mr-5 mt-3 btn btn-secondary" data-toggle="modal" data-target="#PaymentModal" >Make Payment</a>
+<br>
 <!--Ticket Confirmation page as Preview-->
 <div class="card m-5 mb-5 shadow">
     <center>
@@ -145,25 +144,26 @@
 </html>
 <script>
     <!--This function is used to make payment-->
-$(document).off('click').on('click','#payment-button' ,function(){
+$(document).on('click','#payment-button' ,function(){
  $('#payment-content').html('<div class="col-12 alert alert-warning alert-dismissible fade show" role="alert">'+
         '<strong>Congratulation! </strong>You have Successfully booked a Ticket.'+
         '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
             '<span aria-hidden="true">&times;</span>'+
         '</button>'+
     '</div>'+
-    '<a type="button" class="float-right mr-5 btn btn-secondary" id="download-Ticket" > Download </a>'+
+    '<a type="button" class="float-right mr-5 btn btn-secondary" th:href="@{\downloadTicket}"> Download </a>'+
     '<a type="button" class="float-left ml-5 btn btn-primary" th:href="@{\index}">Book Another Ticket </a> <br>');
 });
-$(document).off('click').on('click','#download-Ticket' ,function(){
-
-  $.ajax({
-    url: "\downloadTicket",
-    type:"POST",
-    data:{"trainNo":trainNo},
-    success: function(result){
-
-    }
-  });
+$(document).on('click','#payment-button' ,function(){
+ $('#payment-content').html('<img src="/img/checkmark-transparent.gif" style="margin-left:220px;">'+
+ '<div class="col-12 alert alert-warning alert-dismissible fade show" role="alert">'+
+        '<strong>Congratulation! </strong>You have Successfully booked a Ticket.'+
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+            '<span aria-hidden="true">&times;</span>'+
+        '</button>'+
+    '</div>'+
+    '<a type="button" class="float-right mr-5 btn btn-secondary" href="\downloadTicket"> Download </a>'+
+    '<a type="button" class="float-left ml-5 btn btn-primary" href="\index">Book Another Ticket </a> <br>');
 });
+
 </script>
