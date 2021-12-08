@@ -65,6 +65,7 @@
                     <th>Age</th>
                     <th>Gender</th>
                     <th>Fare</th>
+                    <th>Aadhaar ID</th>
                 </tr>
                 <th:block th:each="passenger:${passengers}">
                     <tr>
@@ -72,6 +73,7 @@
                         <td>[[${passenger.age}]]</td>
                         <td>[[${passenger.gender}]]</td>
                         <td>[[${passenger.price}]]</td>
+                        <td>[[${passenger.aadhaarId}]]</td>
                     </tr>
                 </th:block>
                 <tr>
@@ -79,6 +81,7 @@
                     <td></td>
                     <td></td>
                     <td>[[${totalPrice}]]</td>
+                    <td></td>
                 </tr>
             </table>
         </form>

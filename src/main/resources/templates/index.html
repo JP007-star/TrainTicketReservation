@@ -80,16 +80,18 @@ $(document).off('input').on('input','#noOfPassengers' ,function(){
   $('#content').html('');
   for (let i = 1; i <= val; i++) {
   $('#content').append('<div class="row col-10 m-3 p-0 justify-content-between">'+
-                '<div class="form-group"><label for="name'+i+'">Name:</label>'+
+                '<div class="form-group"><label for="name'+i+' required">Name:</label>'+
           '<input type="text" name="name'+i+'"  id="name'+i+'" class="form-control" placeholder="Name"></div>'+
-          '<div class="form-group"><label for="age'+i+'">Age:</label>'+
+          '<div class="form-group"><label for="age'+i+' required">Age:</label>'+
           '<input type="text" name="age'+i+'"  id="age'+i+'" class="form-control" placeholder="Age"></div>'+
-          '<div class="form-group"><label for="gender'+i+'" >Gender:&emsp;</label><br>'+
+          '<div class="form-group"><label for="gender'+i+' required" >Gender:&emsp;</label><br>'+
           '<select class="form-select" name="gender'+i+'" id="gender'+i+'" >'+
                '<option value="">select</option>'+
                '<option value="M">Male</option>'+
                '<option value="F">Female</option>'+
-           '</select></div></div>');
+           '</select></div>'+
+           '<div class="form-group"><label for="aadhaarId'+i+'">Aadhaar Id:</label>'+
+          '<input type="text" name="aadhaarId'+i+'" id="aadhaarId'+i+'" class="form-control" required placeholder="Enter Aadhaar ID"></div></div>');
   }
   }
   else alert("No of Passenger must be less than 6");

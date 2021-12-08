@@ -85,9 +85,10 @@ public class MainController {
                 int age=Integer.parseInt(ageString);
                 String genderString = request.getParameter("gender" + String.valueOf(i));
                 char gender=genderString.charAt(0);
+                String aadhaarId= request.getParameter("aadhaarId"+String.valueOf(i));
                 Passenger passenger = new Passenger(name,age,gender);
                 double price=ticket.calcPassengerFare(passenger);
-                Passenger finalPassenger = new Passenger(name,age,gender,price);
+                Passenger finalPassenger = new Passenger(name,age,gender,price,aadhaarId);
                 fieldArrayList.add(finalPassenger);
             }
         }
@@ -180,7 +181,7 @@ public class MainController {
 
         document.add(new Paragraph("Passengers:"));
 
-        PdfPTable table2=new PdfPTable(4);
+        PdfPTable table2=new PdfPTable(5);
         table2.setWidthPercentage(100);
         table2.setSpacingBefore(5);
         table2.getDefaultCell().setBorderColor(Color.BLACK);
@@ -188,12 +189,14 @@ public class MainController {
         table2.addCell("Age");
         table2.addCell("Gender");
         table2.addCell("Fare");
+        table2.addCell("Aadhaar ID");
         for(Passenger passengerFields: fieldArrayList)
         {
             table2.addCell(passengerFields.getName());
             table2.addCell(String.valueOf(passengerFields.getAge()));
             table2.addCell(String.valueOf(passengerFields.getGender()));
             table2.addCell(String.valueOf(passengerFields.getPrice()));
+            table2.addCell(String.valueOf(passengerFields.getAadhaarId()));
         }
         table2.setSpacingAfter(10);
         document.add(table2);

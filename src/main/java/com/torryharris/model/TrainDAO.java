@@ -174,8 +174,9 @@ public class TrainDAO {
         dataBaseConnection();
         String query = "update Trains set TRAIN_NAME='"+train.trainName+"',SOURCE='"+train.source+"',DESTINATION='"+train.destination+"'," +
                 "TICKET_PRICE="+train.ticketPrice+" where TRAIN_NO="+train.trainNo+";";
-        statement.execute(query);
         System.out.println(query);
+        statement.execute(query);
+
     }
 }
 

@@ -5,6 +5,7 @@ public class Passenger implements Comparable<Passenger>{
     int age;
     char gender;
     double price;
+    String aadhaarId;
 
     public double getPrice() {
         return price;
@@ -19,13 +20,21 @@ public class Passenger implements Comparable<Passenger>{
         this.age = age;
         this.gender = gender;
     }
-    public Passenger(String name, int age, char gender,double price) {
+    public Passenger(String name, int age, char gender, double price, String aadhaarId) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.price = price;
+        this.aadhaarId=aadhaarId;
     }
 
+    public String getAadhaarId() {
+        return aadhaarId;
+    }
+
+    public void setAadhaarId(String aadhaarId) {
+        this.aadhaarId = aadhaarId;
+    }
 
     public String getName() {
         return name;
