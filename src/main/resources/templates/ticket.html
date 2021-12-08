@@ -19,8 +19,9 @@
 </style>
 <body>
 <!--Bootstrap Alert-->
+<br>
 <center>
-
+<h2><img style="height:50px;" th:src="@{\img\trainTicket.png}">   TICKET PREVIEW</h2>
 </center>
 <!--Button for download Ticket as Pdf-->
 
@@ -86,7 +87,7 @@
             </table>
         </form>
         <br><br>
-        <img height="200px;" class="mt-5" th:src="@{\img\happyJourney.png}">
+        <img height="200px;" class="mt-5" th:src="@{\img\train1.jpeg}">
     </center>
 </div>
 </body>
@@ -160,7 +161,7 @@ $(document).on('click','#payment-button' ,function(){
 $(document).on('click','#payment-button' ,function(){
  $('#payment-content').html('<img src="/img/checkmark-transparent.gif" style="margin-left:220px;">'+
  '<div class="col-12 alert alert-warning alert-dismissible fade show" role="alert">'+
-        '<strong>Congratulation! </strong>You have Successfully booked a Ticket.'+
+        '<strong>Congratulation! </strong>You have Successfully booked a Ticket. Have a safe journey.'+
         '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
             '<span aria-hidden="true">&times;</span>'+
         '</button>'+
