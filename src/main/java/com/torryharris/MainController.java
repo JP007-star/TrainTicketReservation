@@ -134,6 +134,21 @@ public class MainController {
         trainDAO.deleteTrain(trainNo);
         return "redirect:/trains";
     }
+
+    @PostMapping("updateTrain")
+    public String updateTrain(HttpServletRequest request, Model model) throws SQLException, ClassNotFoundException {
+        Integer trainNo=Integer.parseInt(request.getParameter("trainNo"));
+        String trainName=request.getParameter("trainName");
+        String source=request.getParameter("source");
+        String destination=request.getParameter("destination");
+        double price=Integer.parseInt(request.getParameter("price"));
+
+        System.out.println(trainNo);
+        Train train=new Train(trainNo,trainName,source,destination,price);
+        TrainDAO trainDAO=new TrainDAO();
+        trainDAO.updateTrain(train);
+        return "redirect:/trains";
+    }
     //This controller function is for generating ticket as PDF
     @GetMapping("downloadTicket")
     public void  downloadTicket(HttpServletResponse response) throws IOException {
