@@ -45,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	                "/css/**",
 					"/bookTicket",
 	                "/img/**").permitAll()
+				.antMatchers("/userPage").access("hasRole('ROLE_ADMIN')")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
@@ -59,6 +60,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.permitAll()
 		.and()
 		.csrf().disable().cors();
+
+
+
 	}
 
 }

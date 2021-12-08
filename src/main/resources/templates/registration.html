@@ -6,19 +6,29 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+<style>
+.menu-bar{
+   background: rgba(255, 245, 102, 0.621) ;
+   text-align: center;
+   width:100%;
+   height:60px;
+   border-radius:10px;
+}
+</style>
 <body>
+<!--Header Section-->
+<div class="menu-bar shadow">
+	<h2 class="heading"><img style="height:50px;" th:src="@{\img\trainTicket.png}"> &emsp; TRAIN TICKET RESERVATION</h2>
+</div><br>
    <div class="row justify-content-center">
-   <div class="col-5">
-
-   </div>
-	<div class="container card col-6  mt-5 p-3">
+	<div class="container card col-6  p-3">
 		<div class="row">
 			<div class="col-md-12 col-md-offset-3">
 
 				<!-- success message -->
 				<div th:if="${param.success}">
 					<div class="alert alert-info">You've successfully registered
-						to our awesome app!</div>
+						to our train ticket booking application!</div>
 				</div>
 
 				<h5>Registration</h5>

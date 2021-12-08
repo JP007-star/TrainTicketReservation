@@ -48,6 +48,13 @@ public class MainController {
         model.addAttribute("trainList",trainArrayList);
         return "trains";
     }
+    @GetMapping("/userPage")
+    public String userPage(Model model){
+        TrainDAO trainDAO=new TrainDAO();
+        ArrayList<Train> trainArrayList= trainDAO.fetchTrains();
+        model.addAttribute("trainList",trainArrayList);
+        return "trains_user";
+    }
 
 
     // This Controller function is for loading the reservation page

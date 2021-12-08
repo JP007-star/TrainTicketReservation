@@ -31,7 +31,7 @@
     </thead>
     <tbody>
     <th:block th:each="train:${trainList}">
-        <tr class='clickable-row' th:data-href="@{reservation?(trainNo=${train.trainNo})}">
+        <tr class='clickable-row' th:data-href="@{index?(trainNo=${train.trainNo})}">
             <td>[[${train.trainNo}]]</td>
             <td>[[${train.trainName}]]</td>
             <td>[[${train.source}]]</td>
