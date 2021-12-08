@@ -5,7 +5,14 @@
     <title>Train Ticket Confirmation</title>
     <link type="text/css" th:href="@{\css\style.css}" rel="stylesheet">
 <!--    Bootstrap link from webjars-->
+    <link rel="stylesheet" href="\css\payment.css">
+    <link type="text/css" th:href="@{\css\style.css}" rel="stylesheet">
+    <!--    Bootstrap link from webjars-->
+    <script th:src="@{\webjars\jquery\3.0.0\jquery.js}"></script>
+
     <link type="text/css" rel="stylesheet" th:href="@{\webjars\bootstrap\4.3.1\css\bootstrap.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script type="text/javascript"  th:src="@{\webjars\bootstrap\4.3.1\js\bootstrap.js}"></script>
 </head>
 <style>
 
@@ -22,6 +29,7 @@
 </center>
 <!--Button for download Ticket as Pdf-->
 <a type="button" class="float-right mr-5 btn btn-secondary" th:href="@{\downloadTicket}"> Download </a>
+<a type="button" class="float-right mr-5 btn btn-secondary" data-toggle="modal" data-target="#PaymentModal" >Make Payement </a>
 <a type="button" class="float-left ml-5 btn btn-primary" th:href="@{\index}">Book Another Ticket </a> <br>
 
 <!--Ticket Confirmation page as Preview-->
@@ -85,4 +93,57 @@
     </center>
 </div>
 </body>
+<!-- Modal -->
+<div class="modal fade" id="PaymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:800px; left:-150px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Payment Gateway</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <div id="payment-content">
+                   <div class="card col-12">
+                       <div class="d-flex justify-content-between px-3 pt-4">
+                           <span class="pay">Pay amount</span>
+                           <div class="amount">
+                               <div class="inner">
+                                   <!---<span class="dollar"></span>--->
+                                   <span><img th:src="@{/img/indianrupees.png}" width="10"></span>
+                                   <span class="total">[[${totalPrice}]]</span>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="px-3 pt-3">
+                           <label for="card number" class="d-flex justify-content-between">
+                               <span class="labeltxt">CARD NUMBER</span>
+                               <img th:src="@{/img/mastercard.png}" width="25" class="image">
+                           </label>
+                           <input type="number" id="card number" name="number" class="form-control inputtxt" placeholder="xxxx xxxx xxxx xxxx">
+                       </div>
+                       <div class="d-flex justify-content-between px-3 pt-4">
+                           <div>
+                               <label for="date" class="exptxt">Expiry</label>
+                               <input type="number" id="date" name="number" class="form-control expiry" placeholder="MM / YY">
+                           </div>
+                           <div>
+                               <label for="cvv" class="cvvtxt">CVV /CVC</label>
+                               <input type="number" id="cvv" name="number" class="form-control cvv" placeholder="123">
+                           </div>
+                       </div>
+                       <div class="d-flex align-items-center justify-content-between px-3 py-4">
+                       </div>
+                   </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary"/>
+            </div>
+        </div>
+    </div>
+</div>
+
 </html>

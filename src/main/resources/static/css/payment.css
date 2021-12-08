@@ -1,0 +1,148 @@
+/*===== GOOGLE FONTS =====*/
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+
+/*===== VARIABLES CSS =====*/
+:root{
+  --first-color: #adb5bd;
+  --first-color-light: #f3f3fd;
+  --second-color: #673AB7;
+  --third-color:#fff;
+  --four-color:#000;
+  --body-font: 'Quicksand', sans-serif;
+  --normal-font-size: 1rem;
+}
+
+.heading{
+   background: rgba(255, 245, 102, 0.621) ;
+   text-align: center;
+   width:100%;
+   border-radius:10px;
+}
+
+*,::before,::after{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  font-family: var(--body-font);
+  background-color: #F5F5DC;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+/*.menu-bar{
+   background: rgba(255, 245, 102, 0.621) ;
+   text-align: center;
+   width:100%;
+   border-radius:10px;
+}*/
+
+.main{
+    background-color: #F5F5DC;
+    padding:0px 0;
+}
+.card{
+    background-color:var(--third-color);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 29px;
+}
+.pay{
+    font-size: 18px;
+    color:var(--four-color);
+    font-weight: 600;
+    margin-top:5px;
+}
+.amount{
+    background-color:var(--first-color-light);
+    border-radius: 8px;
+}
+.inner{
+    padding:8px 19px;
+}
+.dollar{
+    color:var(--first-color);
+    font-size: 20px;
+    font-weight: 500;
+}
+.total{
+    font-size: 20px;
+    font-weight: 500;
+    color:#6458ab;
+}
+.labeltxt{
+    font-size: 13px;
+    color: #000000;
+    font-weight: 500;
+    margin-top:5px;
+}
+.image{
+    position: relative;
+    top:44px;
+    right:13px;
+}
+
+.form-control:focus{
+    box-shadow: none;
+}
+.inputtxt{
+    color:var(--four-color) !important;
+    font-weight: bold;
+    font-size: 14px;
+    padding:21px 15px;
+    border:2px solid var(--first-color);
+    border-radius: 7px;
+}
+.exptxt{
+    color: #000000;
+    font-size: 13px;
+    font-weight: 500;
+}
+.cvvtxt{
+    color: #000000;
+    font-size: 13px;
+    font-weight: 500;
+}
+.expiry{
+    padding:21px 15px;
+    width:120px;
+    font-size: 14px;
+    font-weight: bold;
+    border:2px solid var(--first-color);
+    border-radius: 7px;
+}
+.cvv{
+    padding:21px 15px;
+    width:120px;
+    border:2px solid var(--first-color);
+    border-radius: 7px;
+}
+.cancel{
+    color:var(--first-color);
+    font-size: 14px;
+    font-weight: 500;
+    border:none;
+}
+.cancel:hover,
+.cancel:focus{
+    box-shadow: none;
+    color:var(--third-color);
+    background-color: #DC143c;
+}
+.payment{
+    font-weight: 600;
+    font-size: 14px;
+    background-color: #1E90FF;
+    border:none;
+    width:150px;
+    color:var(--third-color);
+    padding:15px 10px;
+    border-radius: 11px;
+    cursor: pointer;
+}
+.payment:hover{
+    color:var(--third-color);
+}
+
+
