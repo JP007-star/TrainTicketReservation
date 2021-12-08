@@ -6,6 +6,7 @@
 	<title>Train Ticket Reservation</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
 .menu-bar{
@@ -14,6 +15,15 @@
    width:100%;
    height:60px;
    border-radius:10px;
+}
+/* add appropriate colors to fb, twitter and google buttons */
+.fb {
+  background-color: #3B5998;
+  color: white;
+}
+.google {
+  background-color: #dd4b39;
+  color: white;
 }
 </style>
 <body>
@@ -51,7 +61,7 @@
 					</div>
 					
 					<div class="form-group">
-						<div class="row">
+						<div class="row justify-content-between">
 							<div class="col-sm-6 col-sm-offset-3">
 								<input type="submit" name="login-submit" id="login-submit"
 									class="form-control btn btn-primary" value="Log In" />
@@ -60,8 +70,17 @@
 					</div>
 				</form>
 				<div class="form-group">
-						<span>New user? <a href="/" th:href="@{/registration}">Register
-								here</a></span>
+						<span>New user? </span>
+				</div>
+				<div class="row justify-content-between">
+					<a href="#" class="fb btn">
+						<i class="fa fa-facebook fa-fw"></i> Login with Facebook
+					</a>
+					<a href="#" class="google btn"><i class="fa fa-google fa-fw">
+					</i> Login with Google+
+					</a>
+					<a href="/" th:href="@{/registration}" class="btn btn-primary">Register
+						here</a>
 				</div>
 			</div>
 		</div>
