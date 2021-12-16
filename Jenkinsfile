@@ -1,15 +1,23 @@
 pipeline {
-    agent any
+   agent any
+
+   tools {
+        maven "maven"
+   }
+
      stages {
         stage('Initialize') {
-            echo "Hello World"
-            echo "${BUILD_NUMBER}"
+             steps {
+                echo "Hello World"
+                echo " we are in build no -  ${BUILD_NUMBER}"
+             }
         }
+
         stage('Run Test ') {
-            echo "Hello World"
-            echo "${BUILD_NUMBER}"
+              steps {
+                echo "Hello World"
+                echo "${JOB_NAME}"
+              }
         }
-
      }
-
 }
